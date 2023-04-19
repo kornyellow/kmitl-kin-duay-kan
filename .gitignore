@@ -1,5 +1,6 @@
 # Jetbrain's IDE configurations
 /.idea
+/backend/.idea
 
 # Node Dependencies
 /frontend/node_modules
