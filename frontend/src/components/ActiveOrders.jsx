@@ -27,8 +27,8 @@ const ActiveOrders = () => {
 		<div className="orders">
 			<div className="container pb-5">
 				<h2 className="animate__animated animate__fast animate__fadeIn fw-semibold mb-4 display-6">
-					<FontAwesomeIcon className="me-4" icon={solid("motorcycle")}/>
-					ใครกำลังไปซื้อข้าวตอนนี้?
+					<FontAwesomeIcon className="me-4 my-text-grey" icon={solid("motorcycle")}/>
+					ใครกำลังไปซื้อข้าวตอนนี้
 				</h2>
 				<div className="row g-4">
 					{loading &&
@@ -40,7 +40,7 @@ const ActiveOrders = () => {
 					{!loading && orders.length === 0 &&
 						<div className="d-flex">
 							<div
-								className="animate__animated animate__fast animate__bounceIn fs-5 my-text-black my-bg-light-grey px-3 py-2 fw-semibold text-center">
+								className="animate__animated animate__fast animate__bounceIn fs-5 my-text-secondary my-bg-salmon px-3 py-2 fw-semibold text-center">
 								ยังไม่มีใครไปซื้อข้าวตอนนี้
 								<FontAwesomeIcon className="ms-3" icon={solid("face-sad-tear")}/>
 							</div>
