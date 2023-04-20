@@ -1,6 +1,7 @@
 import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {solid} from "@fortawesome/fontawesome-svg-core/import.macro";
+import ProfileIcon from "./ProfileIcon";
 
 const ProfileUploadForm = (props) => {
 	const [profileURL, setProfileURL] = props.onProfileChange;
@@ -21,10 +22,9 @@ const ProfileUploadForm = (props) => {
 	return (
 		<div className="profile-upload-form">
 			<div className="upload-container position-relative">
-				{profileURL === "" && <FontAwesomeIcon className="icon-user shadow shadow-lg" icon={solid("circle-user")}/>}
-				{profileURL && <div className="preview-img"><img src={profileURL} alt="Preview"/></div>}
+				<ProfileIcon profileURL={profileURL}/>
 				<input title="" type="file" accept="image/*" onChange={handleFileInputChange}/>
-				<FontAwesomeIcon className="icon-edit shadow shadow-lg" icon={solid("camera")}/>
+				<FontAwesomeIcon className="icon-edit" icon={solid("camera")}/>
 			</div>
 		</div>
 	);

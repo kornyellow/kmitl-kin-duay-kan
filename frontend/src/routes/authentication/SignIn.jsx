@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import BackendServer from "../../index";
 
-const MySwal = withReactContent(Swal)
+const MySwal = withReactContent(Swal);
 
 const SignIn = () => {
 	const [success, setSuccess] = useState(false);
@@ -80,7 +80,8 @@ const SignIn = () => {
 						<h1 className="fw-bold display-4">Sign In</h1>
 						<p className="fs-5 mb-5">กรอกข้อมูลของคุณ เพื่อมากินอาหารด้วยกันนน!</p>
 						<div className="input-container">
-							<input placeholder="Username / Student ID" name="username" type="text" autoComplete="username"/>
+							<input placeholder="Username / Student ID" name="username" type="text" autoComplete="username"
+							       autoFocus="true"/>
 							<input placeholder="Password" name="password" type="password" autoComplete="current-password"/>
 						</div>
 						{!loading &&
@@ -94,7 +95,7 @@ const SignIn = () => {
 							</button>
 						}
 						<p className="fs-5 mt-4">ยังไม่เป็นลูกสมุนของเกมตัวตึงอีกหรอ?
-							<Link to={`/sign/up`} className="ms-3 my-btn my-btn-transparent fs-5 fw-bold text-nowrap">
+							<Link to={`/sign/up`} className="ms-3 my-btn fs-5 fw-bold text-nowrap">
 								Sign Up
 							</Link>
 						</p>

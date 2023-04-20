@@ -50,7 +50,7 @@ const SignUp = () => {
 		}
 
 		setLoading(true);
-		fetch(BackendServer+"/api/user/signup", {
+		fetch(BackendServer + "/api/user/signup", {
 			method: "POST", headers: {"Content-Type": "application/json"},
 			body: JSON.stringify({
 				username: username, nickname: nickname, password: password, passwordConfirm: passwordConfirm,
@@ -98,7 +98,8 @@ const SignUp = () => {
 						<h1 className="fw-bold display-4">Sign Up</h1>
 						<p className="fs-5 mb-5">กรอกข้อมูลของคุณ เพื่อมาเป็นลูกสมุนเกมตัวตึงด้วยกัน!</p>
 						<div className="input-container">
-							<input placeholder="Username / Student ID" name="username" type="text" autoComplete="username"/>
+							<input placeholder="Username / Student ID" name="username" type="text" autoComplete="username"
+							       autoFocus="true"/>
 							<input placeholder="Nickname" name="nickname" type="text" autoComplete="nickname"/>
 							<input placeholder="Password" name="password" type="password" autoComplete="new-password"/>
 							<input placeholder="Confirm Password" name="passwordConfirm" type="password"
@@ -115,7 +116,7 @@ const SignUp = () => {
 							</button>
 						}
 						<p className="fs-5 mt-4">เป็นลูกสมุนเกมตัวตึงอยู่แล้ว?
-							<Link to={`/sign/in`} className="ms-3 my-btn my-btn-transparent fs-5 fw-bold text-nowrap">
+							<Link to={`/sign/in`} className="ms-3 my-btn fs-5 fw-bold text-nowrap">
 								Sign In
 							</Link>
 						</p>

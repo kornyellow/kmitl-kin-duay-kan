@@ -1,79 +1,24 @@
 import React from "react";
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {solid} from '@fortawesome/fontawesome-svg-core/import.macro';
 
-const TopPicks =()=> {
-    return (
-        <div className="Toppicks my-bg-newWhite h-14">
-            <div className="container">
-                <div className="d-flex flex-row justify-content-center">
-                    <div className="Toppicks-head px-5 mt-3 mb-4 justify-content-center">
-                            <span className="fw-bold fs-2">Top Picks</span>
-                            <span><FontAwesomeIcon className="ms-3 fs-2" icon={solid("utensils")} /></span>
-                    </div>
-                </div>
-                <div className="d-flex flex-column gap-3">
-
-                    <div className="d-flex flex-row justify-content-around">   
-                        <div className="nav nav-pills mx-2">
-                            <li className="nav-item my-bg-grey rounded-3">
-                                <a className="nav-link my-text-black"># เทคโนอินเตอร์</a>
-                            </li>
-                        </div>
-                        <div className="nav nav-pills mx-2">
-                            <li className="nav-item my-bg-grey rounded-3">
-                                <a className="nav-link my-text-black"># เทคโนอินเตอร์</a>
-                            </li>
-                        </div>
-                        <div className="nav nav-pills mx-2">
-                            <li className="nav-item my-bg-grey rounded-3">
-                                <a className="nav-link my-text-black"># เทคโนอินเตอร์</a>
-                            </li>
-                        </div>
-                        <div className="nav nav-pills mx-2">
-                            <li className="nav-item my-bg-grey rounded-3">
-                                <a className="nav-link my-text-black"># เทคโนอินเตอร์</a>
-                            </li>
-                        </div>
-                        <div className="nav nav-pills mx-2">
-                            <li className="nav-item my-bg-grey rounded-3">
-                                <a className="nav-link my-text-black"># เทคโนอินเตอร์</a>
-                            </li>
-                        </div>
-                    </div>
-
-                    <div className="d-flex flex-row justify-content-around">
-                        <div className="nav nav-pills mx-2">
-                            <li className="nav-item my-bg-grey rounded-3">
-                                <a className="nav-link my-text-black"># เทคโนอินเตอร์</a>
-                            </li>
-                        </div>
-                        <div className="nav nav-pills mx-2">
-                            <li className="nav-item my-bg-grey rounded-3">
-                                <a className="nav-link my-text-black"># เทคโนอินเตอร์</a>
-                            </li>
-                        </div>
-                        <div className="nav nav-pills mx-2">
-                            <li className="nav-item my-bg-grey rounded-3">
-                                <a className="nav-link my-text-black"># เทคโนอินเตอร์</a>
-                            </li>
-                        </div>
-                        <div className="nav nav-pills mx-2">
-                            <li className="nav-item my-bg-grey rounded-3">
-                                <a className="nav-link my-text-black"># เทคโนอินเตอร์</a>
-                            </li>
-                        </div>
-                        <div className="nav nav-pills mx-2">
-                            <li className="nav-item my-bg-grey rounded-3">
-                                <a className="nav-link my-text-black"># เทคโนอินเตอร์</a>
-                            </li>
-                        </div>      
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    );
+const TopPicks = () => {
+	return (
+		<div>
+			<div className="animate__animated animate__fast animate__fadeIn container pt-5 pb-4">
+				<div className="d-flex flex-wrap gap-2">
+					<button className="my-badge my-bg-primary my-text-black">#เทคโนอินเตอร์</button>
+					<button className="my-badge my-bg-primary my-text-black">#ส้มตำ</button>
+					<button className="my-badge my-bg-primary my-text-black">#ข้าวราดแกง</button>
+					<button className="my-badge my-bg-primary my-text-black">#ก๋วยเตี๋ยว</button>
+					<button className="my-badge my-bg-primary my-text-black">#ข้าวมันไก่</button>
+					<button className="my-badge my-bg-primary my-text-black">#อาหารตามสั่ง</button>
+					<button className="my-badge my-bg-primary my-text-black">#อิสลาม</button>
+					<button className="my-badge my-bg-primary my-text-black">#ขนมหวาน</button>
+					<button className="my-badge my-bg-primary my-text-black">#ร้านน้ำ</button>
+					<button className="my-badge my-bg-primary my-text-black">#อื่น ๆ</button>
+				</div>
+			</div>
+		</div>
+	);
 }
 
 export default TopPicks;

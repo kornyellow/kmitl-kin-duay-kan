@@ -8,8 +8,8 @@ import {solid} from '@fortawesome/fontawesome-svg-core/import.macro';
 const AuthenticationNavbar = () => {
 	return (
 		<nav
-			className="animate__animated animate__fadeInDown animate__fast authentication navbar navbar-expand-lg font-secondary text-nowrap">
-			<div className="container">
+			className="authentication navbar navbar-expand-lg font-secondary text-nowrap">
+			<div className="animate__animated animate__fadeInDown animate__fast container">
 				<Link to={`/`} className="navbar-brand d-flex align-items-center gap-2">
 					<img src={KinDuayKanLogo} alt="Logo"/>
 					<div className="font-display d-flex fs-4 align-items-baseline gap-1">

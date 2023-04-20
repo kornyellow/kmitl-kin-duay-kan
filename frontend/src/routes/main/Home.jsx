@@ -1,17 +1,16 @@
 import React from "react";
-import Orders from "../../components/Orders";
+import ActiveOrders from "../../components/ActiveOrders";
 import ScoreBoard from "../../components/ScoreBoard";
 import Banner from "../../components/Banner";
+import TopPicks from "../../components/TopPicks";
 
 const Home = () => {
 	return (
 		<div className="home">
 			<Banner/>
-			<Orders/>
+			<TopPicks/>
+			<ActiveOrders/>
 			<ScoreBoard/>
-			<footer className="footer d-flex flex-row justify-content-center align-items-center my-bg-grey">© 2023
-				Copyright: เกมตัวตึง.com
-			</footer>
 		</div>
 	);
 }

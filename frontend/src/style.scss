@@ -9,31 +9,22 @@ $enable-negative-margins: true;
 
 /* DEFAULT MAP OVERRIDES */
 $my-primary-color: #FFAF38;
-$my-primary-color-active: #E89416;
-
 $my-secondary-color: #F9F6EE;
-
 $my-white-color: #FFF;
-
 $my-black-color: #383434;
-
 $my-salmon-color: #F05E5E;
-$my-salmon-color-active: #F05E5E;
-
-$my-newWhite-color: #FAF9F6;
-
+$my-yellow-white-color: #FAF9F6;
 $my-grey-color: #6F6F6F;
-
-$my-minigrey-color: #d9dcd9;
-
+$my-light-grey-color: #D9DCD9;
 $my-green-color: #64B159;
-$my-green-color-active: #4E9844;
 
 $primary-font: "Anuphan", sans-serif;
 $secondary-font: "Fira Sans Condensed", sans-serif;
 $display-font: "Amaranth", sans-serif;
 
-$animation-speed: 200ms;
+$default-border-radius: 1em;
+$transition-duration: 200ms;
+$darken-strength: 15%;
 
 @import "../node_modules/bootstrap/scss/variables";
 
@@ -52,32 +43,48 @@ $animation-speed: 200ms;
 
 @import "../node_modules/bootstrap/scss/utilities/api";
 
+html {
+  position: relative;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
 body {
-	font-family: $primary-font;
-	background-color: $my-secondary-color;
+  font-family: $primary-font;
+  background-color: $my-secondary-color;
 }
 
 * {
-	font: inherit;
+  font: inherit;
+
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
 }
 
 .my-text-primary { color: $my-primary-color; }
 .my-text-secondary { color: $my-secondary-color; }
-.my-text-black {color: $my-black-color;}
-.my-text-grey {color: $my-grey-color;}
+.my-text-black { color: $my-black-color; }
+.my-text-grey { color: $my-grey-color; }
+.my-text-light-grey { color: $my-light-grey-color; }
 
 .my-bg-primary { background-color: $my-primary-color; }
 .my-bg-secondary { background-color: $my-secondary-color; }
-.my-bg-white { background-color: $my-white-color;}
-.my-bg-green { background-color: $my-green-color;}
-.my-bg-salmon {background-color: $my-salmon-color;}
-.my-bg-grey {background-color: $my-grey-color;}
-.my-bg-newWhite {background-color: $my-newWhite-color;}
-.my-bg-minigrey {background-color: $my-minigrey-color;}
+.my-bg-white { background-color: $my-white-color; }
+.my-bg-green { background-color: $my-green-color; }
+.my-bg-salmon { background-color: $my-salmon-color; }
+.my-bg-grey { background-color: $my-grey-color; }
+.my-bg-yellow-white { background-color: $my-yellow-white-color; }
+.my-bg-light-grey { background-color: $my-light-grey-color; }
 
-.font-primary { font-family: $primary-font; }
-.font-secondary { font-family: $secondary-font; }
-.font-display { font-family: $display-font; }
+.font-primary { font-family: $primary-font !important; }
+.font-secondary { font-family: $secondary-font !important; }
+.font-display { font-family: $display-font !important; }
 
 .lh-0 { line-height: 0; }
 .lh-1 { line-height: 1em; }
@@ -87,354 +94,386 @@ body {
 .lh-5 { line-height: 5em; }
 .lh-6 { line-height: 6em; }
 
-.h-14 { height: 14em;}
-.h-20 { height: 20em;}
-.h-30 { height: 30em;}
-.h-38 { height: 38em;}
-.h-40 { height: 40em;}
-
 input {
-	&:-webkit-autofill::first-line {
-		font-size: inherit;
-	}
+  &:-webkit-autofill::first-line {
+    font-size: inherit;
+  }
+}
+
+/* BADGE */
+.my-badge {
+  font-weight: bold;
+  height: fit-content;
+  padding: 0.3em 1em;
+  border-radius: 100vw;
+  text-decoration: none;
+  border: none;
 }
 
 /* BUTTONS UWU */
 .my-btn {
-	height: fit-content;
-	font-family: $secondary-font;
-	padding: 0.4em 1.4em 0.3em 1em;
-	border-radius: 100vw;
-	transition: background-color 300ms;
-	text-decoration: none;
-	border: none;
+  color: $my-black-color;
+  height: fit-content;
+  font-family: $secondary-font;
+  padding: 0.4em 1.4em 0.3em 1em;
+  border-radius: 100vw;
+  transition: background-color $transition-duration;
+  text-decoration: none;
+  border: none;
 }
+
 .my-btn.btn-block {
-	width: 100%;
+  width: 100%;
 }
 .my-btn.disabled {
-	filter: brightness(0.9);
-	cursor: wait;
+  filter: brightness(0.9);
+  cursor: wait;
+}
+.my-btn:hover {
+  color: $my-black-color;
 }
 
 .my-btn-primary {
-	height: fit-content;
-	font-family: $secondary-font;
-	color: $my-black-color;
-	background-color: $my-primary-color;
-	text-decoration: none;
-	padding: 0.4em 1.4em 0.3em 1em;
-	border-radius: 100vw;
-	transition: background-color 300ms;
+  height: fit-content;
+  font-family: $secondary-font;
+  color: $my-black-color;
+  background-color: $my-primary-color;
+  text-decoration: none;
+  padding: 0.4em 1.4em 0.3em 1em;
+  border-radius: 100vw;
+  transition: background-color $transition-duration;
 }
 .my-btn-primary:hover {
-	color: $my-black-color;
-	background-color: $my-primary-color-active;
+  color: $my-black-color;
+  background-color: darken($my-primary-color, $darken-strength);
 }
 
 .my-btn-green {
-	color: $my-white-color;
-	background-color: $my-green-color;
+  color: $my-white-color;
+  background-color: $my-green-color;
 }
 .my-btn-green:hover {
-	color: $my-white-color;
-	background-color: $my-green-color-active;
+  color: $my-white-color;
+  background-color: darken($my-green-color, $darken-strength);
 }
 
 .my-btn-salmon {
-	color: $my-white-color;
-	background-color: $my-salmon-color;
+  color: $my-white-color;
+  background-color: $my-salmon-color;
 }
 .my-btn-salmon:hover {
-	color: $my-white-color;
-	background-color: $my-salmon-color-active;
+  color: $my-white-color;
+  background-color: darken($my-salmon-color, $darken-strength);
 }
 
 .my-btn-transparent {
-	color: $my-black-color;
-	backdrop-filter: blur(5px);
-	background: rgba(255, 255, 255, 0.4);
+  color: $my-black-color;
+  backdrop-filter: blur(5px);
+  background: rgba(255, 255, 255, 0.4);
 }
 .my-btn-transparent:hover {
-	color: $my-black-color;
-	background-color: rgba(255, 255, 255, 0.2);
+  color: $my-black-color;
+  background: transparent;
 }
 
 /* PAGE NOT FOUND *o* */
 .page-not-found {
-	height: 80vh;
-	display: grid;
-	place-content: center;
+  height: 80vh;
+  display: grid;
+  place-content: center;
 }
 
 /* MY MAIN NAVBAR */
-.navbar.main .navbar-brand {
-	padding: 0.2em 1.5em;
+.navbar.main {
+  background-color: $my-white-color;
 }
 
 .navbar.main .nav-link span {
-	padding: 0.2em 0.5em 0 0.5em;
+  padding: 0.2em 0.5em 0 0.5em;
 }
 .navbar.main .nav-link {
-	color: $my-black-color;
-	border-radius: 100vw;
-	background-color: transparent;
-	transition: background-color $animation-speed;
+  color: $my-black-color;
+  border-radius: 100vw;
+  background-color: transparent;
+  transition: background-color $transition-duration;
 }
 .navbar.main .nav-link:hover {
-	background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.1);
 }
-.navbar.main .nav-link[aria-current="page"] {
-	background-color: $my-black-color;
-	color: $my-secondary-color;
-	cursor: default;
+.navbar.main .nav-link.current {
+  background-color: $my-black-color;
+  color: $my-white-color;
+  cursor: default;
 }
 
 .navbar.main .toggler {
-	color: $my-black-color;
-	border-radius: 10px;
-	background-color: transparent;
-	transition: background-color $animation-speed;
-	border: none;
-	padding: 0.3em 0.5em;
+  color: $my-black-color;
+  border-radius: $default-border-radius;
+  background-color: transparent;
+  transition: background-color $transition-duration;
+  border: none;
+  padding: 0.3em 0.5em;
 }
 .navbar.main .toggler:focus {
-	outline: none;
-	box-shadow: none;
+  outline: none;
+  box-shadow: none;
 }
 
-//Hi game เอง
 .navbar.main .icon-user {
-	width: 50px;
-	height: 50px;
-	border-radius: 100%;
-	color: $my-grey-color;
+  width: 50px;
+  height: 50px;
+  border-radius: 100vw;
+  color: $my-grey-color;
 }
 .navbar.main .preview-img {
-	position: relative;
-	width: 50px;
-	height: 50px;
-	border-radius: 100%;
-	overflow: hidden;
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border-radius: 100vw;
+  overflow: hidden;
 }
 .navbar.main .preview-img img {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 50px;
-	height: 50px;
-	object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
 }
 
 /* MY AUTHENTICATION NAVBAR */
 body:has(.navbar.authentication) {
-	background-image: url("../src/images/backgrounds/authentication.jpg");
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
-	width: 100vw !important;
-	height: 100vh !important;
+  background-image: url("../src/images/background-blur.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100vw !important;
+  height: 100vh !important;
 }
-
 .navbar.authentication .navbar-brand {
-	backdrop-filter: blur(5px);
-	background: rgba(255, 255, 255, 0.4);
-	padding: 0.2em 1.5em;
-	border-radius: 10px;
+  backdrop-filter: blur(5px);
+  background: rgba(255, 255, 255, 0.4);
+  padding: 0.2em 1.5em;
+  border-radius: $default-border-radius;
 }
 
 .navbar.authentication .toggler {
-	color: $my-black-color;
-	border-radius: 10px;
-	backdrop-filter: blur(5px);
-	background: rgba(255, 255, 255, 0.4);
-	transition: background-color $animation-speed;
-	border: none;
-	padding: 0.5em 1em;
+  color: $my-black-color;
+  border-radius: $default-border-radius;
+  backdrop-filter: blur(5px);
+  background: rgba(255, 255, 255, 0.4);
+  transition: background-color $transition-duration;
+  border: none;
+  padding: 0.5em 1em;
 }
 .navbar.authentication .toggler:focus {
-	outline: none;
-	box-shadow: none;
+  outline: none;
+  box-shadow: none;
 }
 
 /* AUTHENTICATION */
 .authentication-container .card {
-	width: min(100%, 700px);
-	margin-top: 3vw;
-	background: #F7F6F5;
-	border: 1px solid rgba(0, 0, 0, 0.1);
-	border-radius: 20px;
+  width: min(100%, 700px);
+  margin-top: 3vw;
+  background: #F7F6F5;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: $default-border-radius;
 }
 
 .input-container {
-	display: flex;
-	flex-direction: column;
-	margin-bottom: 1.5em;
-	gap: 1em;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5em;
+  gap: 1em;
 }
 .input-container input {
-	padding: 0.5em 1em;
-	font-size: 1.2em;
-	border: none;
-	background: $my-white-color;
-	border-radius: 20px;
-	width: 100%;
+  padding: 0.5em 1em;
+  font-size: 1.2em;
+  border: none;
+  background: $my-white-color;
+  border-radius: $default-border-radius;
+  width: 100%;
 }
 .input-container input:focus {
-	border: none;
-	outline: none;
+  border: none;
+  outline: none;
+}
+
+/* PROFILE IMAGE */
+.profile-icon {
+  color: $my-grey-color;
+  background-color: $my-white-color;
+  border-radius: 100vw;
 }
 
 /* MY BANNER */
+.home .my-banner-container {
+  width: 100%;
+  height: max(250px, 30vw);
+  overflow: hidden;
+  position: relative;
+  background-image: url("../src/images/background-blur.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .home .my-banner {
-	width: 100%;
+  width: auto;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 /* MY PROFILE UPLOAD FORM */
 .profile-upload-form {
-	width: 200px;
-	height: 200px;
+  width: 200px;
+  height: 200px;
 }
+
 .profile-upload-form .upload-container > * {
-	position: absolute;
+  position: absolute;
 }
+
 .profile-upload-form .icon-user {
-	font-size: 200px;
-	background-color: $my-white-color;
-	color: $my-grey-color;
-	border-radius: 50%;
+  font-size: 200px;
+  background-color: $my-white-color;
+  color: $my-grey-color;
+  border-radius: 100vw;
 }
+
 .profile-upload-form .upload-container > input {
-	font-size: 0;
-	width: 50px;
-	height: 50px;
-	left: 150px;
-	top: 150px;
-	opacity: 0;
-	z-index: 1;
+  font-size: 0;
+  width: 50px;
+  height: 50px;
+  left: 150px;
+  top: 150px;
+  opacity: 0;
+  z-index: 1;
 }
+
 .profile-upload-form .upload-container > .icon-edit {
-	width: 30px;
-	height: 30px;
-	left: 150px;
-	top: 150px;
-	padding: 10px;
-	background-color: $my-primary-color;
-	color: $my-black-color;
-	border-radius: 50%;
-	transition: background-color $animation-speed;
+  width: 30px;
+  height: 30px;
+  left: 150px;
+  top: 150px;
+  padding: 10px;
+  background-color: $my-primary-color;
+  color: $my-black-color;
+  border-radius: 100vw;
+  transition: background-color $transition-duration;
 }
+
 .profile-upload-form .upload-container input:hover {
-	cursor: pointer;
+  cursor: pointer;
 }
+
 .profile-upload-form .upload-container input:hover + .icon-edit {
-	background-color: $my-primary-color-active;
+  background-color: darken($my-primary-color, $darken-strength);
 }
 
 .profile-upload-form .preview-img {
-	position: relative;
-	width: 200px;
-	height: 200px;
-	border-radius: 100%;
-	overflow: hidden;
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 100vw;
+  overflow: hidden;
 }
+
 .profile-upload-form .preview-img img {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 200px;
-	height: 200px;
-	object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
 }
 
 /* MY ORDER CARD */
-.order-card .order-head {
-	font-size: 3em;
-	margin-bottom: 3em;
+.order-card {
+  margin-top: 8em;
 }
 
-.order-card .icon-circle-user {
-	font-size: 11em;
-	margin-top: -0.55em;
+.order-card > button {
+  padding-top: 4em !important;
+  border-radius: $default-border-radius;
+  background-color: $my-white-color;
+  text-decoration: none;
+  border: none;
+  position: relative;
+  transform: scale(1) translateY(0) !important;
+  transition: transform $transition-duration !important;
 }
 
-.order-card .box {
-	width: 23.5vw !important;
-	height: 33vh !important;
-	margin-bottom: 8em;
+.order-card > button:hover {
+  transform: scale(1.03) translateY(-1%) !important;
 }
 
-.order-card .icon-circle-user-modal{
-	font-size: 11em;
+.order-card > button > .profile-icon {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(-65%);
 }
 
-.order-card .tag{
-	margin-top: -1.5em;
-}
-
-.order-card .icon-add{
-	font-size: 3em;
-}
-
-.order-card .input-form{
-	width: 20vw !important;
-	height: 6vh !important;
+.order-card > button > .profile-icon > * {
+  width: 10em;
+  height: 10em;
 }
 
 /* MY ORDER CAROUSEL */
-
-.order-carousel .box1-1{
-	width: 18vw !important;
-	height: 15vh !important;
+.order-carousel .box1-1 {
+  width: 18vw !important;
+  height: 15vh !important;
 }
 
-.order-carousel .icon-circle-user-carousel{
-	font-size: 4em;
+.order-carousel .icon-circle-user-carousel {
+  font-size: 4em;
 }
 
 /* TOP SCORE */
 .top-score .top-score-head {
-	font-size: 3em;
+  font-size: 3em;
 }
 
-.top-score .icon-circle-user{
-	font-size: 4.5em;
+.top-score .icon-circle-user {
+  font-size: 4.5em;
 }
 
-.top-score .progresss{
-    margin-top: -1.9em;
+.top-score .progresss {
+  margin-top: -1.9em;
 }
 
-.top-score .progress{
-    height: 4em;
+.top-score .progress {
+  height: 4em;
 }
 
-.top-score .progress-bar-1{
-    width: 65em;
+.top-score .progress-bar-1 {
+  width: 65em;
 }
 
 .top-score .bar-point {
-	margin-top: -1em;
+  margin-top: -1em;
 }
 
 /* MAKE ORDER */
 .make-order-container {
-	padding-top: 0.3em;
-	padding-bottom: 0.1em;
-    // padding-left: 3em;
-    // padding-right: 3em;
-	border-radius: 20px;
+  padding-top: 0.3em;
+  padding-bottom: 0.1em;
+  border-radius: $default-border-radius;
 }
 
-.make-order-container .make-order-object{
-	font-size: 2em;
+.make-order-container .make-order-object {
+  font-size: 2em;
 }
 
-.make-order-container .input-group{
-	height: 5rem;
+.make-order-container .input-group {
+  height: 5rem;
 }
 
-.make-order-container .from-select-restaurant{
-	width: 17.75em;
-	height: 3.125em;
+.make-order-container .from-select-restaurant {
+  width: 17.75em;
+  height: 3.125em;
 }

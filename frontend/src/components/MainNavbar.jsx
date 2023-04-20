@@ -5,15 +5,27 @@ import {Link, Navigate} from "react-router-dom";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {solid} from '@fortawesome/fontawesome-svg-core/import.macro';
 import {getUser} from "./Authentication";
+import ProfileIcon from "./ProfileIcon";
 
 const MainNavbar = (props) => {
 	const [user, setUser] = useState(null);
 	const [signOut, setSignOut] = useState(false);
 	const [profileURL, setProfileURL] = useState("");
+	const [current, setCurrent] = useState("HOME");
 
 	const handleSignout = () => {
 		sessionStorage.removeItem("token");
 		setSignOut(true);
+	}
+
+	const handleChangePage = (event) => {
+		const navId = event.target.innerHTML;
+		if (navId === current)
+			return;
+		const navLinks = document.querySelectorAll(".nav-link");
+		navLinks.forEach(link => link.classList.remove("current"));
+		event.target.classList.add("current");
+		setCurrent(event.target.innerHTML);
 	}
 
 	useEffect(() => {
@@ -27,10 +39,9 @@ const MainNavbar = (props) => {
 	}, [props.profileURL]);
 
 	return (
-		<nav className="animate__animated animate__fadeInDown animate__fast
-											main navbar navbar-expand-lg font-secondary text-nowrap">
+		<nav className="main navbar navbar-expand-lg font-secondary text-nowrap">
 			{signOut && <Navigate to={`/sign/in`} replace={true}/>}
-			<div className="container">
+			<div className="container animate__animated animate__fadeInDown animate__fast">
 				<Link to={`/`} className="navbar-brand d-flex align-items-center gap-2">
 					<img src={KinDuayKanLogo} alt="Logo"/>
 					<div className="font-display d-none d-lg-flex fs-4 align-items-baseline gap-1">
@@ -46,36 +57,39 @@ const MainNavbar = (props) => {
 				<div className="collapse navbar-collapse gap-4 text-center" id="navbarNav">
 					<ul className="navbar-nav ms-auto text-center gap-2 fs-5 mt-4 mt-lg-0">
 						<li className="nav-item">
-							<Link to={`/`} className="nav-link" aria-current="page"><span>HOME</span></Link>
+							<Link onClick={handleChangePage} className={`nav-link ${current === "HOME" && 'current'}`}
+							      to={`/`}><span>HOME</span></Link>
 						</li>
 						<li className="nav-item">
-							<Link to={`/top-score`} className="nav-link"><span>TOP SCORE</span></Link>
+							<Link onClick={handleChangePage} className={`nav-link ${current === "TOP SCORE" && 'current'}`}
+							      to={`/top-score`}><span>TOP SCORE</span></Link>
 						</li>
 						{user != null &&
 							<li className="nav-item">
-								<Link to={`/orders`} className="nav-link"><span>ORDERS</span></Link>
+								<Link onClick={handleChangePage} className={`nav-link ${current === "ORDERS" && 'current'}`}
+								      to={`/orders`}><span>ORDERS</span></Link>
 							</li>
 						}
 						{user != null &&
 							<li className="nav-item">
-								<Link to={`/profile`} className="nav-link"><span>PROFILE</span></Link>
+								<Link onClick={handleChangePage} className={`nav-link ${current === "PROFILE" && 'current'}`}
+								      to={`/profile`}><span>PROFILE</span></Link>
 							</li>
 						}
 					</ul>
-					<div className="my-3 my-lg-0 d-flex gap-3 justify-content-center align-items-center">
-						{profileURL === "" && <FontAwesomeIcon className="icon-user shadow shadow-lg" icon={solid("circle-user")}/>}
-						{profileURL && <div className="preview-img"><img src={profileURL} alt="Preview"/></div>}
+					<div className="my-3 my-lg-0 d-flex gap-4 justify-content-center align-items-center">
+						<ProfileIcon profileURL={profileURL}/>
+						{user == null &&
+							<Link to={`/sign/in`} className="my-btn my-btn-green fs-5">
+								<FontAwesomeIcon className="me-3" icon={solid("right-to-bracket")}/>Sign In
+							</Link>
+						}
+						{user != null &&
+							<button onClick={handleSignout} className="my-btn my-btn-salmon fs-5">
+								<FontAwesomeIcon className="me-3" icon={solid("right-to-bracket")}/>Sign Out
+							</button>
+						}
 					</div>
-					{user == null &&
-						<Link to={`/sign/in`} className="my-btn my-btn-green fs-5">
-							<FontAwesomeIcon className="me-3" icon={solid("right-to-bracket")}/>Sign In
-						</Link>
-					}
-					{user != null &&
-						<button onClick={handleSignout} className="my-btn my-btn-salmon fs-5">
-							<FontAwesomeIcon className="me-3" icon={solid("right-to-bracket")}/>Sign Out
-						</button>
-					}
 				</div>
 			</div>
 		</nav>
