@@ -479,3 +479,77 @@ body:has(.navbar.authentication) {
   width: 17.75em;
   height: 3.125em;
 }
+
+  .container-active-order {
+    display: flex;
+    justify-content: space-around;
+    width: 90.0625em;
+    height: 14.75em;
+    background: #F1F0EC;
+    border-radius: 20px;
+  
+}
+
+.order-profile {
+  display: flex;
+  align-items: center;
+  width: 10.9375em;
+  height: 8.8125em;
+  
+}
+
+.parent-container{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.mini-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 4.9375em;
+  height: 4.8125em;
+}
+
+.box-user {
+  display: grid;
+  columns: 3;
+  width: 24em;
+  height: 9.8125em;
+  background: #F8F8F8;
+  border-radius: 40px;
+  border : 2px solid #000;
+  
+}
+
+
+//order-profile
+.active-item-3 {
+  width: 25%;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  // border: 2px solid #000;
+}
+
+//letter
+.active-item-4 {
+  width: 33.33%;
+  display: flex;
+  align-items: center;
+}
+
+//box-user
+.active-item-5 {
+  width: 50.67%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.AAA{
+  display: flex;
+  width: 23em;
+  height: 4em;
+}
