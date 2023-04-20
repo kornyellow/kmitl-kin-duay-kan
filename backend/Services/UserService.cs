@@ -47,15 +47,12 @@ public class UserService : IUserService {
 			};
 		}
 
-		var token = new Token();
-
 		var randomString = KornString.GenerateRandomString(32);
 		while (Tokens.FirstOrDefault(t => t.Id == randomString) != null) {
 			randomString = KornString.GenerateRandomString(32);
 		}
 
-		token.Id = randomString;
-		token.Owner = user;
+		var token = new Token { Id = randomString, Owner = user };
 		Tokens.Add(token);
 
 		return new ServiceResponse<Token> { Data = token };

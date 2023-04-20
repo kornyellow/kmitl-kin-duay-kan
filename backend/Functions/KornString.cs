@@ -2,7 +2,7 @@ using System.Text;
 
 namespace kmitl_web_app_project_backend.Functions;
 
-public class KornString {
+public abstract class KornString {
 	public static string GenerateRandomString(int length) {
 		const string validChars =
 			"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()_+-=[]{}|;:,.<>?";

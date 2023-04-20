@@ -4,14 +4,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options => {
-	options.AddPolicy(name: myAllowSpecificOrigins, policy => {
-		policy.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod();
-	});
+	options.AddPolicy(name: myAllowSpecificOrigins,
+		policy => { policy.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod(); });
 });
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ILocationService, LocationService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 var app = builder.Build();
 
