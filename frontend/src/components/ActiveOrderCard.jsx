@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import BackendServer from "../index";
 
-const ActiveOrders = () => {
+const ActiveOrderCard = () => {
 
     return (
 
@@ -38,6 +38,16 @@ const ActiveOrders = () => {
                                     <p class="mb-0">"กะเพราหมูแต่ใส่ไก่"</p>
                                 </div>
                             </div>
+                            <div class="d-flex flex-row justify-content-center align-items-center">
+                                <div class="mini-profile me-3">
+                                    <img src="https://i.pinimg.com/564x/62/8c/a3/628ca307f8b7281bf055ff5894cc78d5.jpg"
+                                        class="img-fluid rounded-circle" />
+                                </div>
+                                <div class="box1-1-detail">
+                                    <p>User : เกมตัวตึง 888</p>
+                                    <p class="mb-0">"กะเพราหมูแต่ใส่ไก่"</p>
+                                </div>
+                            </div>
                             <button class="carousel-control-prev prev-button" type="button" data-bs-target="#carousel1"
                                 data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -56,4 +66,4 @@ const ActiveOrders = () => {
     );
 }
 
-export default ActiveOrders;
+export default ActiveOrderCard;

@@ -1,6 +1,6 @@
 import React from "react";
 import Authentication from "../../components/Authentication";
-import ActiveOrders from "../../components/ActiveOrders";
+import ActiveOrders from "../../components/ActiveOrderCard";
 
 const Orders = () => {
 	return (
