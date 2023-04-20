@@ -1,55 +1,79 @@
-import React, {useEffect, useState} from "react";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {solid} from "@fortawesome/fontawesome-svg-core/import.macro";
+import React, { useEffect, useState } from "react";
 import BackendServer from "../index";
-import OrderCard from "./OrderCard";
-import LoadingPlaceHolder from "./LoadingPlaceHolder";
 
 const ActiveOrders = () => {
-	const [orders, setOrders] = useState([]);
-	const [loading, setLoading] = useState(true);
 
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const response = await fetch(BackendServer + "/api/order");
-				const json = await response.json();
-				setLoading(false);
-				setOrders(json.data);
-			} catch (error) {
-				setLoading(false);
-			}
-		};
-		fetchData().then();
-	}, []);
+    return (
 
-	return (
-		<div className="orders">
-			<div className="container pb-5">
-				<h2 className="animate__animated animate__fast animate__fadeIn fw-semibold mb-4 display-6">
-					<FontAwesomeIcon className="me-4 my-text-grey" icon={solid("motorcycle")}/>
-					ใครกำลังไปซื้อข้าวตอนนี้
-				</h2>
-				<div className="row g-4">
-					{loading &&
-						<LoadingPlaceHolder/>
-					}
-					{orders.map((order) => (
-						<OrderCard key={order.id} order={order}/>
-					))}
-					{!loading && orders.length === 0 &&
-						<div className="d-flex">
-							<div
-								className="animate__animated animate__fast animate__bounceIn fs-5 my-text-secondary my-bg-salmon px-3 py-2 fw-semibold text-center">
-								ยังไม่มีใครไปซื้อข้าวตอนนี้
-								<FontAwesomeIcon className="ms-3" icon={solid("face-sad-tear")}/>
-							</div>
-						</div>
-					}
-				</div>
-			</div>
-		</div>
-	);
+        <div class="parent-container">
+            <div class="container-active-order">
+                <div class="active-item-3">
+                    <div class="order-profile">
+                        <img src="https://i.pinimg.com/564x/62/8c/a3/628ca307f8b7281bf055ff5894cc78d5.jpg"
+                            class="img-fluid rounded-circle"></img>
+                    </div>
+                </div>
+                <div class="active-item-5">
+                    <span class="d-flex flex-column align-items-center order-text">
+                        <p class="fs-3 fw-medium">“กำลังจะไปซื้อข้าวร้าน เทคโนอินเตอร์”</p>
+                        <p class="fs-6 fw-bold">Friday, April 20, 2023 12.33 pm</p>
+                        <p>
+                            <span class="fs-3 fw-medium">5/5 Order</span>
+                            <span>
+                                <button type="button" class="btn btn-outline-dark ms-3 confirm-button">CONFIRM</button>
+                            </span>
+                        </p>
+                    </span>
+                </div>
+                <div class="active-item-4">
+                    <div class="box-user">
+                        <div id="carousel1" class="carousel carousel-dark slide ">
+                            <div class="d-flex flex-row justify-content-center align-items-center">
+                                <div class="mini-profile me-3">
+                                    <img src="https://i.pinimg.com/564x/62/8c/a3/628ca307f8b7281bf055ff5894cc78d5.jpg"
+                                        class="img-fluid rounded-circle" />
+                                </div>
+                                <div class="box1-1-detail">
+                                    <p>User : เกมตัวตึง 888</p>
+                                    <p class="mb-0">"กะเพราหมูแต่ใส่ไก่"</p>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row justify-content-center align-items-center">
+                                <div class="mini-profile me-3">
+                                    <img src="https://i.pinimg.com/564x/62/8c/a3/628ca307f8b7281bf055ff5894cc78d5.jpg"
+                                        class="img-fluid rounded-circle" />
+                                </div>
+                                <div class="box1-1-detail">
+                                    <p>User : เกมตัวตึง 888</p>
+                                    <p class="mb-0">"กะเพราหมูแต่ใส่ไก่"</p>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row justify-content-center align-items-center">
+                                <div class="mini-profile me-3">
+                                    <img src="https://i.pinimg.com/564x/62/8c/a3/628ca307f8b7281bf055ff5894cc78d5.jpg"
+                                        class="img-fluid rounded-circle" />
+                                </div>
+                                <div class="box1-1-detail">
+                                    <p>User : เกมตัวตึง 888</p>
+                                    <p class="mb-0">"กะเพราหมูแต่ใส่ไก่"</p>
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev prev-button" type="button" data-bs-target="#carousel1"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carousel1" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    );
 }
 
 export default ActiveOrders;
