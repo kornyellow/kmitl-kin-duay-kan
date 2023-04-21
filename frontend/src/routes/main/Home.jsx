@@ -1,8 +1,8 @@
 import React from "react";
-import ActiveOrders from "../../components/ActiveOrderCard";
 import ScoreBoard from "../../components/ScoreBoard";
 import Banner from "../../components/Banner";
 import TopPicks from "../../components/TopPicks";
+import ActiveOrders from "../../components/ActiveOrders";
 
 const Home = () => {
 	return (
