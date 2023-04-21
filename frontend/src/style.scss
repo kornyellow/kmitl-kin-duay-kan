@@ -631,8 +631,8 @@ body:has(.navbar.authentication) {
   align-items: center;
 }
 
-.AAA {
-  display: flex;
-  width: 23em;
-  height: 4em;
+.btn-success {
+  background-color: #A3EBB1;
+  border-color: #A3EBB1;
+  color: #209416;
 }
