@@ -13,9 +13,10 @@ const ActiveOrders = () => {
 		const fetchData = async () => {
 			try {
 				const response = await fetch(BackendServer + "/api/order");
-				const json = await response.json();
+				const data = await response.json();
+
+				setOrders(data.data);
 				setLoading(false);
-				setOrders(json.data);
 			} catch (error) {
 				setLoading(false);
 			}
@@ -25,9 +26,9 @@ const ActiveOrders = () => {
 
 	return (
 		<div className="orders">
-			<div className="container pb-5">
-				<h2 className="animate__animated animate__fast animate__fadeIn fw-semibold mb-4 display-6">
-					<FontAwesomeIcon className="me-4 my-text-grey" icon={solid("motorcycle")}/>
+			<div className="container pb-5 pt-3">
+				<h2 className="animate__animated animate__fast animate__fadeIn fw-semibold mb-3 display-6">
+					<FontAwesomeIcon className="me-4 my-text-salmon" icon={solid("location-dot")}/>
 					ใครกำลังไปซื้อข้าวตอนนี้
 				</h2>
 				<div className="row g-4">

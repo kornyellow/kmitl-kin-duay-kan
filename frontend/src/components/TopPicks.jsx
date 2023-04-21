@@ -1,4 +1,7 @@
 import React from "react";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {solid} from "@fortawesome/fontawesome-svg-core/import.macro";
+import {Link} from "react-router-dom";
 
 const TopPicks = () => {
 	return (
@@ -16,6 +19,11 @@ const TopPicks = () => {
 					<button className="my-badge my-bg-primary my-text-black">#ร้านน้ำ</button>
 					<button className="my-badge my-bg-primary my-text-black">#อื่น ๆ</button>
 				</div>
+				<Link to={`/orders/create`}
+				      className="font-primary my-btn my-btn-green btn-block fw-semibold fs-4 mt-3 text-center text-truncate">
+					<FontAwesomeIcon className="me-3" icon={solid("motorcycle")}/>
+					ซื้อข้าวให้เพื่อน แง๊น แง๊นน~~
+				</Link>
 			</div>
 		</div>
 	);

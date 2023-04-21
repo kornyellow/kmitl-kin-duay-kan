@@ -50,15 +50,18 @@ const SignUp = () => {
 		}
 
 		setLoading(true);
-		fetch(BackendServer + "/api/user/signup", {
-			method: "POST", headers: {"Content-Type": "application/json"},
-			body: JSON.stringify({
-				username: username, nickname: nickname, password: password, passwordConfirm: passwordConfirm,
-			}),
-		}).then((response) => {
-			response.json().then(data => {
+		const fetchData = async () => {
+			try {
+				const response = await fetch(BackendServer + "/api/user/signup", {
+					method: "POST", headers: {"Content-Type": "application/json"},
+					body: JSON.stringify({
+						username: username, nickname: nickname, password: password, passwordConfirm: passwordConfirm,
+					}),
+				});
+				const data = await response.json();
+
 				if (data.success) {
-					return MySwal.fire({
+					MySwal.fire({
 						title: "ยินดีด้วยยยย!",
 						text: "คุณเป็นลูกสมุนของเกมตัวตึงเรียบร้อยแล้ว!",
 						icon: "success",
@@ -68,24 +71,26 @@ const SignUp = () => {
 					}).then(() => {
 						setSuccess(true);
 					});
+				} else {
+					MySwal.fire({
+						title: "เกิดข้อผิดพลาด!",
+						text: data.message,
+						icon: "error",
+						confirmButtonText: "รับทราบ",
+					}).then();
 				}
+			} catch (error) {
 				MySwal.fire({
 					title: "เกิดข้อผิดพลาด!",
-					text: data.message,
+					text: "เกมตัวตึงบุกทำลายเว็บไซต์ของเรา ทำให้เว็บไซต์ไม่สามารถใช้งานได้ชั่วคราว ขออภัยด้วยครับ",
 					icon: "error",
 					confirmButtonText: "รับทราบ",
 				}).then();
-			});
-		}).catch(() => {
-			MySwal.fire({
-				title: "เกิดข้อผิดพลาด!",
-				text: "เกมตัวตึงบุกทำลายเว็บไซต์ของเรา ทำให้เว็บไซต์ไม่สามารถใช้งานได้ชั่วคราว ขออภัยด้วยครับ",
-				icon: "error",
-				confirmButtonText: "รับทราบ",
-			}).then();
-		}).finally(() => {
-			setLoading(false);
-		});
+			} finally {
+				setLoading(false);
+			}
+		};
+		fetchData().then();
 	};
 
 	return (
@@ -97,9 +102,9 @@ const SignUp = () => {
 					<div className="card-body p-5 text-center">
 						<h1 className="fw-bold display-4">Sign Up</h1>
 						<p className="fs-5 mb-5">กรอกข้อมูลของคุณ เพื่อมาเป็นลูกสมุนเกมตัวตึงด้วยกัน!</p>
-						<div className="input-container">
+						<div className="input-container d-flex flex-column gap-3 mb-3">
 							<input placeholder="Username / Student ID" name="username" type="text" autoComplete="username"
-							       autoFocus="true"/>
+							       autoFocus={true}/>
 							<input placeholder="Nickname" name="nickname" type="text" autoComplete="nickname"/>
 							<input placeholder="Password" name="password" type="password" autoComplete="new-password"/>
 							<input placeholder="Confirm Password" name="passwordConfirm" type="password"

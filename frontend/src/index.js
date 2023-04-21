@@ -16,6 +16,8 @@ import SignUp from "./routes/authentication/SignUp";
 import Orders from "./routes/main/Orders";
 import Profile from "./routes/main/Profile";
 import TopScore from "./routes/main/TopScore";
+import MakeOrder from "./components/MakeOrder";
+import MyCurrentOrder from "./components/MyCurrentOrder";
 
 const BackendServer = "http://localhost:5002";
 export default BackendServer;
@@ -28,7 +30,15 @@ const router = createBrowserRouter([
 		children: [
 			{path: "", element: <Home/>},
 			{path: "home", element: <Home/>},
-			{path: "orders", element: <Orders/>},
+			{
+				path: "orders",
+				element: <Orders/>,
+				children: [
+					{path: "", element: <MakeOrder/>},
+					{path: "create", element: <MakeOrder/>},
+					{path: "active", element: <MyCurrentOrder/>},
+				],
+			},
 			{path: "top-score", element: <TopScore/>},
 			{path: "profile", element: <Profile/>},
 		],

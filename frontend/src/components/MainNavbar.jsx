@@ -22,7 +22,7 @@ const MainNavbar = (props) => {
 		const navId = event.target.innerHTML;
 		if (navId === current)
 			return;
-		const navLinks = document.querySelectorAll(".nav-link");
+		const navLinks = document.querySelectorAll(".navbar.main .nav-link");
 		navLinks.forEach(link => link.classList.remove("current"));
 		event.target.classList.add("current");
 		setCurrent(event.target.innerHTML);
