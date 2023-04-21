@@ -3,7 +3,7 @@ import BackendServer from "../index";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {solid} from '@fortawesome/fontawesome-svg-core/import.macro';
 
-const ActiveOrderCard = () => {
+const History = () => {
 
     return (
 
@@ -20,9 +20,9 @@ const ActiveOrderCard = () => {
                         <p className="fs-3 fw-medium">“กำลังจะไปซื้อข้าวร้าน เทคโนอินเตอร์”</p>
                         <p className="fs-6 fw-bold">Friday, April 20, 2023 12.33 pm</p>
                         <p>
-                            <span className="fs-3 fw-medium">5/5 Order</span>
+                            <span className="fs-3 fw-medium">5/5 Order</span> 
                             <span>
-                                <button type="button" className="btn btn-outline-dark ms-3 confirm-button">CONFIRM</button>
+                            <button type="button" className="btn btn-success ms-3">SUCCESS</button>
                             </span>
                         </p>
                     </span>
@@ -62,14 +62,14 @@ const ActiveOrderCard = () => {
                                     </div>
                                 </div>
                             </div>
-                            <button class="carousel-control-prev prev-button" type="button" data-bs-target="#carousel1"
+                            <button className="carousel-control-prev prev-button" type="button" data-bs-target="#carousel1"
                                 data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
+                                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span className="visually-hidden">Previous</span>
                             </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carousel1" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
+                            <button className ="carousel-control-next" type="button" data-bs-target="#carousel1" data-bs-slide="next">
+                                <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span className="visually-hidden">Next</span>
                             </button>
                         </div>
                     </div>
@@ -80,4 +80,4 @@ const ActiveOrderCard = () => {
     );
 }
 
-export default ActiveOrderCard;
+export default History;
