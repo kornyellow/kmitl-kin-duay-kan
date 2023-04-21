@@ -1,8 +1,11 @@
 import React from "react";
+import CurrentOrderCard from "./CurrentOrderCard";
 
 const MyCurrentOrder = () => {
 	return (
-		<div></div>
+		<div>
+			<CurrentOrderCard/>
+		</div>
 	);
 };
 

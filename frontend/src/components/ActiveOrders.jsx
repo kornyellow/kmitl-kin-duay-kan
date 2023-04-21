@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {solid} from "@fortawesome/fontawesome-svg-core/import.macro";
 import BackendServer from "../index";
-import OrderCard from "./OrderCard";
+import ActiveOrderCard from "./ActiveOrderCard";
 import LoadingPlaceHolder from "./LoadingPlaceHolder";
 
 const ActiveOrders = () => {
@@ -36,7 +36,7 @@ const ActiveOrders = () => {
 						<LoadingPlaceHolder/>
 					}
 					{orders.map((order) => (
-						<OrderCard key={order.id} order={order}/>
+						<ActiveOrderCard key={order.id} order={order}/>
 					))}
 					{!loading && orders.length === 0 &&
 						<div className="d-flex">
