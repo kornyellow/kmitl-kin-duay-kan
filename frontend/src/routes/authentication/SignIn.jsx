@@ -7,8 +7,15 @@ import {solid} from "@fortawesome/fontawesome-svg-core/import.macro";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import BackendServer from "../../index";
+import {fetchSignOut} from "./AuthenticationRoot";
 
-const MySwal = withReactContent(Swal);
+const SwalWithStyleButtons = Swal.mixin({
+	customClass: {
+		confirmButton: "my-btn my-btn-primary no-icon fs-5 font-primary fw-semibold",
+	},
+	buttonsStyling: false,
+});
+const MySwal = withReactContent(SwalWithStyleButtons);
 
 const SignIn = () => {
 	const [success, setSuccess] = useState(false);
@@ -50,9 +57,11 @@ const SignIn = () => {
 						timer: 2000,
 						timerProgressBar: true,
 					}).then(() => {
-						setSuccess(true);
-						setLoading(false);
-						sessionStorage.setItem("token", data.data.id);
+						fetchSignOut().then(() => {
+							sessionStorage.setItem("token", data.data.id);
+							setSuccess(true);
+							setLoading(false);
+						});
 					});
 				} else {
 					MySwal.fire({
@@ -90,12 +99,11 @@ const SignIn = () => {
 							       autoFocus={true}/>
 							<input placeholder="Password" name="password" type="password" autoComplete="current-password"/>
 						</div>
-						{!loading &&
+						{!loading ?
 							<button type="submit" className="my-btn my-btn-primary fs-4 btn-block">
 								<FontAwesomeIcon className="me-3" icon={solid("right-to-bracket")}/>Sign In
 							</button>
-						}
-						{loading &&
+							:
 							<button type="button" className="my-btn my-btn-primary disabled fs-4 btn-block">
 								<FontAwesomeIcon className="me-3" icon={solid("spinner")} spinPulse/>Loading
 							</button>

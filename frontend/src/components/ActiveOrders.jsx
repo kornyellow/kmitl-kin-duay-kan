@@ -5,9 +5,10 @@ import BackendServer from "../index";
 import ActiveOrderCard from "./ActiveOrderCard";
 import LoadingPlaceHolder from "./LoadingPlaceHolder";
 
-const ActiveOrders = () => {
+const ActiveOrders = (props) => {
 	const [orders, setOrders] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const user = props.user;
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -36,7 +37,7 @@ const ActiveOrders = () => {
 						<LoadingPlaceHolder/>
 					}
 					{orders.map((order) => (
-						<ActiveOrderCard key={order.id} order={order}/>
+						<ActiveOrderCard key={order.id} order={order} user={user}/>
 					))}
 					{!loading && orders.length === 0 &&
 						<div className="d-flex">

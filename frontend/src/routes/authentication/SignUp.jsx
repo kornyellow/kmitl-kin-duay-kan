@@ -7,7 +7,13 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import BackendServer from "../../index";
 
-const MySwal = withReactContent(Swal)
+const SwalWithStyleButtons = Swal.mixin({
+	customClass: {
+		confirmButton: "my-btn my-btn-primary no-icon fs-5 font-primary fw-semibold",
+	},
+	buttonsStyling: false,
+});
+const MySwal = withReactContent(SwalWithStyleButtons);
 
 const SignUp = () => {
 	const [success, setSuccess] = useState(false);
@@ -110,12 +116,11 @@ const SignUp = () => {
 							<input placeholder="Confirm Password" name="passwordConfirm" type="password"
 							       autoComplete="new-password"/>
 						</div>
-						{!loading &&
+						{!loading ?
 							<button type="submit" className="my-btn my-btn-green fs-4 btn-block">
 								<FontAwesomeIcon className="me-3" icon={solid("right-to-bracket")}/>Sign Up
 							</button>
-						}
-						{loading &&
+							:
 							<button type="button" className="my-btn my-btn-green disabled fs-4 btn-block">
 								<FontAwesomeIcon className="me-3" icon={solid("spinner")} spinPulse/>Loading
 							</button>

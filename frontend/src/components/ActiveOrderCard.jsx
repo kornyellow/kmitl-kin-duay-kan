@@ -7,6 +7,7 @@ import ProfileIcon from "./ProfileIcon";
 import {OrderModel} from "../Models";
 
 const ActiveOrderCard = (props) => {
+	const user = props.user;
 	const modalId = `order-modal-${props.order.id}`;
 
 	return (
@@ -52,21 +53,31 @@ const ActiveOrderCard = (props) => {
 								</div>
 								<div className="w-100 text-truncate text-center">{props.order.message}</div>
 								<OrderCarousel id={`order-carousel-card-${props.order.id}`}/>
-								<div className="w-100">
-									<button className="fw-semibold text-truncate my-btn my-btn-green btn-block no-icon font-primary fs-5">
-										<FontAwesomeIcon className="me-2" icon={solid("hand-point-up")}/>+1
-										<span className="ms-3">เอาเหมือนกันเลย</span>
-									</button>
-								</div>
-								<hr className="divider"/>
-								<div className="input-container d-flex w-100 gap-2">
-									<input className="input-form w-50" type="text" placeholder="ฝากซื้ออย่างอื่น..."/>
-									<button
-										className="fw-semibold text-truncate flex-fill my-btn my-btn-primary no-icon font-primary fs-5">
-										<FontAwesomeIcon className="me-3" icon={solid("paper-plane")}/>
-										<span>ขอเป็นอันนี้ละกัน</span>
-									</button>
-								</div>
+								{user ?
+									<div>
+										<div className="w-100">
+											<button
+												className="fw-semibold text-truncate my-btn my-btn-green btn-block no-icon font-primary fs-5">
+												<FontAwesomeIcon className="me-2" icon={solid("hand-point-up")}/>+1
+												<span className="ms-3">เอาเหมือนกันเลย</span>
+											</button>
+										</div>
+										<hr className="divider"/>
+										<div className="input-container d-flex w-100 gap-2">
+											<input className="input-form w-50" type="text" placeholder="ฝากซื้ออย่างอื่น..."/>
+											<button
+												className="fw-semibold text-truncate flex-fill my-btn my-btn-primary no-icon font-primary fs-5">
+												<FontAwesomeIcon className="me-3" icon={solid("paper-plane")}/>
+												<span>ขอเป็นอันนี้ละกัน</span>
+											</button>
+										</div>
+									</div>
+									:
+									<div className="w-100 fs-5 mb-2 py-3 rounded-3 fw-semibold text-center my-bg-light-grey">
+										<FontAwesomeIcon className="me-3 my-text-grey" icon={solid("info-circle")}/>
+										กรุณาเข้าสู่ระบบก่อนฝากเพื่อนซื้อข้าว!
+									</div>
+								}
 							</div>
 						</div>
 					</div>

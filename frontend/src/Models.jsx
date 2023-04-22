@@ -7,18 +7,18 @@ export const UserModel = PropTypes.shape({
 	aliasname: PropTypes.string.isRequired,
 	profileImage: PropTypes.string.isRequired,
 	reputation: PropTypes.number.isRequired,
-}).isRequired;
+});
 
 export const TokenModel = PropTypes.shape({
 	id: PropTypes.string.isRequired,
 	owner: UserModel,
-}).isRequired;
+});
 
 export const LocationModel = PropTypes.shape({
 	id: PropTypes.number.isRequired,
 	name: PropTypes.string.isRequired,
 	rating: PropTypes.number.isRequired,
-}).isRequired;
+});
 
 export const OrderModel = PropTypes.shape({
 	id: PropTypes.number.isRequired,
@@ -30,7 +30,7 @@ export const OrderModel = PropTypes.shape({
 	dateTimeCreated: PropTypes.string.isRequired,
 	score: PropTypes.number.isRequired,
 	isComplete: PropTypes.bool.isRequired,
-}).isRequired;
+});
 
 export const OrderRecipientModel = PropTypes.shape({
 	id: PropTypes.number.isRequired,
@@ -38,4 +38,4 @@ export const OrderRecipientModel = PropTypes.shape({
 	order: OrderModel,
 	message: PropTypes.string.isRequired,
 	dateTimeCreated: PropTypes.string.isRequired,
-}).isRequired;
+});

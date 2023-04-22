@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using kmitl_web_app_project_backend.Models;
 using kmitl_web_app_project_backend.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,11 @@ public class UserController : ControllerBase {
 	[HttpPost("token")]
 	public ActionResult<User> GetUserByToken(Token token) {
 		return Ok(_userService.GetUserByToken(token));
+	}
+
+	[HttpPost("edit")]
+	public ActionResult<User> Edit(User user) {
+		return Ok(_userService.Edit(user));
 	}
 
 	[HttpPost("signup")]

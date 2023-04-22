@@ -122,7 +122,6 @@ button {
 .my-btn {
   display: block;
   color: $my-black-color;
-  height: fit-content;
   font-family: $secondary-font;
   padding: 0.4em 1.4em 0.3em 1em;
   border-radius: 100vw;
@@ -175,7 +174,7 @@ button {
 
 /* Input Container */
 .input-container {
-  input {
+  input, select {
     padding: 0.5em 1em;
     font-size: 1.2em;
     border: none;
@@ -222,6 +221,15 @@ button {
 .navbar.main {
   background-color: $my-white-color;
 
+  .container {
+    transform: translateY(-100px);
+    transition: transform 500ms;
+    transition-delay: 500ms;
+  }
+  .container.show {
+    transform: translateY(0);
+  }
+
   .nav-link {
     color: $my-black-color;
     border-radius: 100vw;
@@ -237,9 +245,7 @@ button {
       cursor: default;
     }
 
-    span {
-      padding: 0.2em 0.5em 0 0.5em;
-    }
+    padding: 0.3em 1em;
   }
 
   .toggler {
@@ -408,6 +414,22 @@ body:has(.navbar.authentication) {
   }
 }
 
+.modal-profile-edit {
+  border: none;
+  border-radius: $default-border-radius;
+  background: url("./images/background.jpg");
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+
+  .modal-box {
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+    border: 1px solid(100, 100, 100, 0.5);
+    border-radius: $default-border-radius;
+  }
+}
+
 /* Order card */
 .order-card {
   padding-top: 8em;
@@ -546,23 +568,7 @@ body:has(.navbar.authentication) {
 }
 
 /* MAKE ORDER */
-.make-order-container {
-  padding-top: 0.3em;
-  padding-bottom: 0.1em;
-  border-radius: $default-border-radius;
-}
-
-.make-order-container .make-order-object {
-  font-size: 2em;
-}
-
-.make-order-container .input-group {
-  height: 5rem;
-}
-
-.make-order-container .from-select-restaurant {
-  width: 17.75em;
-  height: 3.125em;
+.make-order {
 }
 
 .container-active-order {
