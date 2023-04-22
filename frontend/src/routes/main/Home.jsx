@@ -6,7 +6,7 @@ import ActiveOrders from "../../components/ActiveOrders";
 import {useOutletContext} from "react-router-dom";
 
 const Home = () => {
-	const [user, __, handleChangePage] = useOutletContext();
+	const [user, , handleChangePage] = useOutletContext();
 
 	return (
 		<div className="home">
