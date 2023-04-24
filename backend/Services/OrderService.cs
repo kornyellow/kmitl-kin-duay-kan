@@ -7,8 +7,21 @@ public class OrderService : IOrderService {
 	private static int _orderRegistry = 1;
 
 	public ServiceResponse<List<Order>> GetAllActive() {
+		var activeOrders = Orders.Where(o => o.IsComplete == false).ToList();
+
+		List<Order> orders = (from order in activeOrders
+			where order.Location != null
+			where order.Rider?.Username != null
+			select new Order {
+				Id = order.Id,
+				MaxOrder = order.MaxOrder,
+				Rider = UserService.TryGetUserByUsernameClean(order.Rider?.Username),
+				Message = order.Message,
+				Location = LocationService.TryGetLocation(order.Location.Id),
+			}).ToList();
+
 		return new ServiceResponse<List<Order>> {
-			Data = Orders.Where(o => o.IsComplete == false).ToList(),
+			Data = orders,
 		};
 	}
 
@@ -24,7 +37,7 @@ public class OrderService : IOrderService {
 				Message = "จำนวนที่รับฝากมากหรือน้อยเกินไป", Success = false
 			};
 		}
-		
+
 		var checkToken = UserService.TryGetToken(order.Rider.Password);
 		if (checkToken?.Owner == null) {
 			return new ServiceResponse<Order> {
@@ -38,7 +51,7 @@ public class OrderService : IOrderService {
 			Message = order.Message, Location = LocationService.TryGetLocation(order.Location.Id),
 		};
 		Orders.Add(newOrder);
-		
+
 		return new ServiceResponse<Order>();
 	}
 }

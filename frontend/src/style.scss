@@ -476,6 +476,11 @@ body:has(.navbar.authentication) {
       border-radius: 100vw;
       overflow: hidden;
 
+      & > svg {
+        width: 10em;
+        height: 10em;
+      }
+
       img {
         position: absolute;
         top: 0;
@@ -508,6 +513,11 @@ body:has(.navbar.authentication) {
       top: 7%;
       border-radius: 100vw;
       overflow: hidden;
+
+      & > svg {
+        width: 10em;
+        height: 10em;
+      }
 
       img {
         position: absolute;
