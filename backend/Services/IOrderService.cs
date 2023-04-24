@@ -5,5 +5,5 @@ namespace kmitl_web_app_project_backend.Services;
 public interface IOrderService {
 	public ServiceResponse<List<Order>> GetAllActive();
 
-	public ServiceResponse<Order> Add(Order order);
+	public ServiceResponse<Order> Create(Order order);
 }

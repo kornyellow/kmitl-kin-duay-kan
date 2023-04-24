@@ -17,13 +17,14 @@ const ActiveOrders = (props) => {
 				const data = await response.json();
 
 				setOrders(data.data);
-				setLoading(false);
 			} catch (error) {
+				console.log(error);
+			} finally {
 				setLoading(false);
 			}
 		};
 		fetchData().then();
-	}, []);
+	}, [user]);
 
 	return (
 		<div className="orders">
@@ -37,7 +38,7 @@ const ActiveOrders = (props) => {
 						<LoadingPlaceHolder/>
 					}
 					{orders.map((order) => (
-						<ActiveOrderCard key={order.id} order={order} user={user}/>
+						<ActiveOrderCard key={`active-order-${order.id}`} order={order} user={user}/>
 					))}
 					{!loading && orders.length === 0 &&
 						<div className="d-flex">

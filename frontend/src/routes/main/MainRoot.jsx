@@ -25,6 +25,7 @@ const MainRoot = () => {
 			try {
 				const data = await fetchUser();
 				if (data.success) {
+					data.data.password = sessionStorage.getItem("token");
 					setUser(data.data);
 				}
 			} catch (error) {

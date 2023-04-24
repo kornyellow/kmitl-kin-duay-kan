@@ -13,7 +13,12 @@ public class OrderController : ControllerBase {
 	}
 
 	[HttpGet]
-	public ActionResult<User> GetAllActive() {
+	public ActionResult<List<Order>> GetAllActive() {
 		return Ok(_orderService.GetAllActive());
+	}
+
+	[HttpPost("create")]
+	public ActionResult<Order> Create(Order order) {
+		return Ok(_orderService.Create(order));
 	}
 }

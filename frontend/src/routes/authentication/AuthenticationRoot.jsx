@@ -34,7 +34,6 @@ export const fetchUser = async () => {
 
 export const editUser = async (user) => {
 	try {
-		user.password = sessionStorage.getItem("token");
 		const response = await fetch(BackendServer + "/api/user/edit", {
 			method: "POST", headers: {"Content-Type": "application/json"},
 			body: JSON.stringify(user),

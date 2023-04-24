@@ -1,26 +1,53 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {solid} from "@fortawesome/fontawesome-svg-core/import.macro";
 import {Link} from "react-router-dom";
+import BackendServer from "../index";
+import LoadingPlaceHolder from "./LoadingPlaceHolder";
 
 const TopPicks = (props) => {
 	const handleChangePage = props.onPageChange;
 	const user = props.user;
 
+	const [topPicks, setTopPicks] = useState([]);
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const response = await fetch(BackendServer + "/api/location");
+				const data = await response.json();
+
+				setTopPicks(data.data);
+			} catch (error) {
+				console.log(error);
+			} finally {
+				setLoading(false);
+			}
+		};
+		fetchData().then();
+	}, []);
+
 	return (
 		<div>
 			<div className="animate__animated animate__fast animate__fadeIn container pt-3 pt-lg-4 pb-4">
 				<div className="d-flex flex-wrap gap-2">
-					<button className="my-badge my-bg-primary my-text-black">#เทคโนอินเตอร์</button>
-					<button className="my-badge my-bg-primary my-text-black">#ส้มตำ</button>
-					<button className="my-badge my-bg-primary my-text-black">#ข้าวราดแกง</button>
-					<button className="my-badge my-bg-primary my-text-black">#ก๋วยเตี๋ยว</button>
-					<button className="my-badge my-bg-primary my-text-black">#ข้าวมันไก่</button>
-					<button className="my-badge my-bg-primary my-text-black">#อาหารตามสั่ง</button>
-					<button className="my-badge my-bg-primary my-text-black">#อิสลาม</button>
-					<button className="my-badge my-bg-primary my-text-black">#ขนมหวาน</button>
-					<button className="my-badge my-bg-primary my-text-black">#ร้านน้ำ</button>
-					<button className="my-badge my-bg-primary my-text-black">#อื่น ๆ</button>
+					{loading &&
+						<LoadingPlaceHolder/>
+					}
+					{topPicks.map((topPick) => (
+						<button key={`top-pick-button-${topPick.id}`}
+						        className="my-badge my-bg-primary my-text-black">#{topPick.name}</button>
+					))}
+					{!loading && topPicks.length === 0 &&
+						<div className="d-flex">
+							<div
+								className="animate__animated animate__fast animate__bounceIn fs-5 my-text-secondary my-bg-salmon px-3 py-2 fw-semibold text-center">
+								ยังไม่มีร้านเด็ดแสดงผลตอนนี้
+								<FontAwesomeIcon className="ms-3" icon={solid("face-sad-tear")}/>
+							</div>
+						</div>
+					}
 				</div>
 				{user &&
 					<Link onClick={handleChangePage} to={`/orders`} data-link-id="ORDERS"

@@ -15,9 +15,11 @@ const ActiveOrderCard = (props) => {
 			<div className="order-card animate__animated animate__fast animate__fadeIn">
 				<button type="button" className="clickable p-4 w-100 shadow-sm" data-bs-toggle="modal"
 				        data-bs-target={`#${modalId}`}>
-					<ProfileIcon profileURL={props.order.rider.profileImage}/>
+					<ProfileIcon onUserChange={props.order.rider}/>
 					<div className="fs-5 fw-bold">{props.order.rider.nickname}</div>
-					<div className="fw-light mb-2 my-text-grey text-truncate">"{props.order.rider.aliasname}"</div>
+					<div className="fw-light mb-2 my-text-grey text-truncate">
+						"{props.order.rider?.aliasname === "" ? "ยังไม่มีฉายา" : props.order.rider.aliasname}"
+					</div>
 					<div className="mb-3 text-truncate">{props.order.message}</div>
 					<div className="d-flex justify-content-between">
 						<div className="my-badge my-bg-primary my-text-black">#{props.order.location.name}</div>
@@ -39,7 +41,7 @@ const ActiveOrderCard = (props) => {
 								</button>
 							</div>
 							<div className="modal-data d-flex flex-column align-items-center px-3 py-3">
-								<ProfileIcon profileURL={props.order.rider.profileImage}/>
+								<ProfileIcon onUserChange={props.order.rider}/>
 								<div className="w-100 mt-4 mb-3 mt-sm-0 mb-sm-0 d-flex justify-content-between flex-wrap gap-2">
 									<div className="my-badge my-bg-primary my-text-black text-truncate">#{props.order.location.name}</div>
 									<div className="d-flex align-items-center">
@@ -48,8 +50,8 @@ const ActiveOrderCard = (props) => {
 									</div>
 								</div>
 								<div className="fs-5 fw-bold">{props.order.rider.nickname}</div>
-								<div
-									className="w-100 text-truncate text-center fw-light mb-2 my-text-grey">"{props.order.rider.aliasname}"
+								<div className="w-100 text-truncate text-center fw-light mb-2 my-text-grey">
+									"{props.order.rider?.aliasname === "" ? "ยังไม่มีฉายา" : props.order.rider.aliasname}"
 								</div>
 								<div className="w-100 text-truncate text-center">{props.order.message}</div>
 								<OrderCarousel id={`order-carousel-card-${props.order.id}`}/>

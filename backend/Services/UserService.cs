@@ -7,8 +7,19 @@ public class UserService : IUserService {
 	private static readonly List<User> Users = new();
 	private static readonly List<Token> Tokens = new();
 
+	public static User? TryGetUserByUsernameClean(string username) {
+		return GetCleanUser(Users.FirstOrDefault(u => u.Username == username));
+	}
+	public static User? TryGetUserByUsername(string username) {
+		return Users.FirstOrDefault(u => u.Username == username);
+	}
+
+	public static Token? TryGetToken(string token) {
+		return Tokens.FirstOrDefault(t => t.Id == token);
+	}
+	
 	public ServiceResponse<User> GetUserByToken(Token token) {
-		var checkToken = Tokens.FirstOrDefault(t => t.Id == token.Id);
+		var checkToken = TryGetToken(token.Id);
 		if (checkToken == null) {
 			return new ServiceResponse<User> {
 				Success = false, Message = "ไม่พบ Token ดังกล่าว"
@@ -21,18 +32,18 @@ public class UserService : IUserService {
 			};
 		}
 
-		var checkUser = Users.FirstOrDefault(u => u.Username == checkToken.Owner.Username);
+		var checkUser = TryGetUserByUsernameClean(checkToken.Owner.Username);
 		if (checkUser == null) {
 			return new ServiceResponse<User> {
 				Success = false, Message = "ไม่พบ User ดังกล่าว"
 			};
 		}
 
-		return new ServiceResponse<User> { Data = GetCleanUser(checkUser) };
+		return new ServiceResponse<User> { Data = checkUser };
 	}
 
 	public ServiceResponse<User> Edit(User user) {
-		var checkToken = Tokens.FirstOrDefault(t => t.Id == user.Password);
+		var checkToken = TryGetToken(user.Password);
 		if (checkToken == null) {
 			return new ServiceResponse<User> {
 				Success = false, Message = "ไม่อนุญาตให้แก้ไขข้อมูล"
@@ -45,17 +56,19 @@ public class UserService : IUserService {
 			};
 		}
 
-		var checkUser = Users.FirstOrDefault(u => u.Username == checkToken.Owner.Username);
+		var checkUser = TryGetUserByUsername(checkToken.Owner.Username);
 		if (checkUser == null) {
 			return new ServiceResponse<User> {
 				Success = false, Message = "ไม่พบ User ดังกล่าว"
 			};
 		}
+		Users.Remove(checkUser);
 
 		checkUser.Nickname = user.Nickname;
 		checkUser.Aliasname = user.Aliasname;
 		checkUser.ProfileImage = user.ProfileImage;
 		checkUser.Reputation = user.Reputation;
+		Users.Add(checkUser);
 
 		return new ServiceResponse<User>();
 	}
@@ -65,14 +78,14 @@ public class UserService : IUserService {
 		    user.Nickname == string.Empty ||
 		    user.Password == string.Empty) {
 			return new ServiceResponse<User> {
-				Message = "ฮั่นแน่~ เกมตัวตึงเห็นคุณแอบกรอกข้อมูลไม่ครบ ละส่งมาได้ยังงายยย ส่งใหม่นะครับบบ",
+				Message = "กรุณากรอกข้อมูลให้ครบ",
 				Success = false
 			};
 		}
 
-		if (Users.FirstOrDefault(u => u.Username == user.Username) != null) {
+		if (TryGetUserByUsername(user.Username) != null) {
 			return new ServiceResponse<User> {
-				Message = "เกมตัวตึงรู้สึกว่าคุ้น ๆ ดูเหมือนชื่อคุณมีอยู่ในระบบแล้ว",
+				Message = "พบชื่อผู้ใช้อยู่ในระบบแล้ว",
 				Success = false
 			};
 		}
@@ -82,7 +95,7 @@ public class UserService : IUserService {
 		return new ServiceResponse<User>();
 	}
 	public ServiceResponse<Token> SignIn(User user) {
-		var checkUser = Users.FirstOrDefault(u => u.Username == user.Username);
+		var checkUser = TryGetUserByUsername(user.Username);
 		if (checkUser == null || !BCrypt.Net.BCrypt.Verify(user.Password, checkUser.Password)) {
 			return new ServiceResponse<Token> {
 				Success = false, Message = "ชื่อผู้ใช้หรือรหัสผ่านผิด",
@@ -90,7 +103,7 @@ public class UserService : IUserService {
 		}
 
 		var randomString = KornString.GenerateRandomString(32);
-		while (Tokens.FirstOrDefault(t => t.Id == randomString) != null) {
+		while (TryGetToken(randomString) != null) {
 			randomString = KornString.GenerateRandomString(32);
 		}
 
@@ -100,7 +113,7 @@ public class UserService : IUserService {
 		return new ServiceResponse<Token> { Data = new Token { Id = randomString } };
 	}
 	public ServiceResponse<Token> SignOut(Token token) {
-		var checkToken = Tokens.FirstOrDefault(t => t.Id == token.Id);
+		var checkToken = TryGetToken(token.Id);
 		if (checkToken == null) {
 			return new ServiceResponse<Token> {
 				Success = false, Message = "ไม่พบ Token ดังกล่าว",
@@ -111,7 +124,9 @@ public class UserService : IUserService {
 		return new ServiceResponse<Token>();
 	}
 
-	private static User GetCleanUser(User user) {
+	private static User? GetCleanUser(User? user) {
+		if (user == null)
+			return null;
 		return new User {
 			Nickname = user.Nickname,
 			Username = user.Username,

@@ -473,9 +473,16 @@ body:has(.navbar.authentication) {
       transform: translateX(-50%) translateY(-65%);
       width: 10em;
       height: 10em;
-      & > * {
+      border-radius: 100vw;
+      overflow: hidden;
+
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 10em;
         height: 10em;
+        object-fit: cover;
       }
     }
   }
@@ -494,14 +501,22 @@ body:has(.navbar.authentication) {
     background-color: $my-secondary-color;
     border-radius: $default-border-radius;
 
-    & > .profile-icon > *,
     & > .profile-icon {
       width: 10em;
       height: 10em;
-    }
-    & > .profile-icon {
       position: absolute;
       top: 7%;
+      border-radius: 100vw;
+      overflow: hidden;
+
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 10em;
+        height: 10em;
+        object-fit: cover;
+      }
     }
   }
 
