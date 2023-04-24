@@ -15,7 +15,49 @@ public class UserService : IUserService {
 			};
 		}
 
-		return new ServiceResponse<User> { Data = checkToken.Owner };
+		if (checkToken.Owner == null) {
+			return new ServiceResponse<User> {
+				Success = false, Message = "สิ่งนี้ไม่ควรเกิดขึ้น"
+			};
+		}
+
+		var checkUser = Users.FirstOrDefault(u => u.Username == checkToken.Owner.Username);
+		if (checkUser == null) {
+			return new ServiceResponse<User> {
+				Success = false, Message = "ไม่พบ User ดังกล่าว"
+			};
+		}
+
+		return new ServiceResponse<User> { Data = GetCleanUser(checkUser) };
+	}
+
+	public ServiceResponse<User> Edit(User user) {
+		var checkToken = Tokens.FirstOrDefault(t => t.Id == user.Password);
+		if (checkToken == null) {
+			return new ServiceResponse<User> {
+				Success = false, Message = "ไม่อนุญาตให้แก้ไขข้อมูล"
+			};
+		}
+
+		if (checkToken.Owner == null) {
+			return new ServiceResponse<User> {
+				Success = false, Message = "สิ่งนี้ไม่ควรเกิดขึ้น"
+			};
+		}
+
+		var checkUser = Users.FirstOrDefault(u => u.Username == checkToken.Owner.Username);
+		if (checkUser == null) {
+			return new ServiceResponse<User> {
+				Success = false, Message = "ไม่พบ User ดังกล่าว"
+			};
+		}
+
+		checkUser.Nickname = user.Nickname;
+		checkUser.Aliasname = user.Aliasname;
+		checkUser.ProfileImage = user.ProfileImage;
+		checkUser.Reputation = user.Reputation;
+
+		return new ServiceResponse<User>();
 	}
 
 	public ServiceResponse<User> SignUp(User user) {
@@ -52,10 +94,10 @@ public class UserService : IUserService {
 			randomString = KornString.GenerateRandomString(32);
 		}
 
-		var token = new Token { Id = randomString, Owner = user };
+		var token = new Token { Id = randomString, Owner = checkUser };
 		Tokens.Add(token);
 
-		return new ServiceResponse<Token> { Data = token };
+		return new ServiceResponse<Token> { Data = new Token { Id = randomString } };
 	}
 	public ServiceResponse<Token> SignOut(Token token) {
 		var checkToken = Tokens.FirstOrDefault(t => t.Id == token.Id);
@@ -67,5 +109,15 @@ public class UserService : IUserService {
 
 		Tokens.Remove(checkToken);
 		return new ServiceResponse<Token>();
+	}
+
+	private static User GetCleanUser(User user) {
+		return new User {
+			Nickname = user.Nickname,
+			Username = user.Username,
+			Aliasname = user.Aliasname,
+			ProfileImage = user.ProfileImage,
+			Reputation = user.Reputation,
+		};
 	}
 }

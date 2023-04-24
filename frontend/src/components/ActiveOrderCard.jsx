@@ -1,83 +1,94 @@
-import React, { useEffect, useState } from "react";
-import BackendServer from "../index";
+import React from "react";
+import OrderCarousel from "./OrderCarousel";
+
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {solid} from '@fortawesome/fontawesome-svg-core/import.macro';
+import ProfileIcon from "./ProfileIcon";
+import {OrderModel} from "../Models";
 
-const ActiveOrderCard = () => {
+const ActiveOrderCard = (props) => {
+	const user = props.user;
+	const modalId = `order-modal-${props.order.id}`;
 
-    return (
-
-        <div className="parent-container">
-            <div className="container-active-order">
-                <div className="active-item-3">
-                    <div className="order-profile">
-                        <img src="https://i.pinimg.com/564x/62/8c/a3/628ca307f8b7281bf055ff5894cc78d5.jpg"
-                            className="img-fluid rounded-circle"></img>
-                    </div>
-                </div>
-                <div className="active-item-5">
-                    <span className="d-flex flex-column align-items-center order-text">
-                        <p className="fs-3 fw-medium">“กำลังจะไปซื้อข้าวร้าน เทคโนอินเตอร์”</p>
-                        <p className="fs-6 fw-bold">Friday, April 20, 2023 12.33 pm</p>
-                        <p>
-                            <span className="fs-3 fw-medium">5/5 Order</span>
-                            <span>
-                                <button type="button" className="btn btn-outline-dark ms-3 confirm-button">CONFIRM</button>
-                            </span>
-                        </p>
-                    </span>
-                </div>
-                <div className="active-item-4">
-                    <div className="box-user">
-                        <div id="carousel1" className="carousel carousel-dark slide">
-                            <div className="inner-carousel">
-                                <div className="carousel-item active">
-                                    <div
-                                        className="box1-1 d-flex flex-column align-items-center justify-content-center my-bg-minigrey rounded-4">
-                                        <div className="d-flex flex-row align-items-center justify-content-center">
-                                            <FontAwesomeIcon className="icon-circle-user-carousel my-text-grey me-2" icon={solid("circle-user")} />
-                                            <div className="box1-1-detail-name fs-6">User : เกมตัวตึง 888</div>
-                                        </div>
-                                        <div className="menu-name">"กะเพราหมูแต่ใส่ไก่"</div>
-                                    </div>
-                                </div>
-                                <div className="carousel-item active">
-                                    <div
-                                        className="box1-1 d-flex flex-column align-items-center justify-content-center my-bg-minigrey rounded-4">
-                                        <div className="d-flex flex-row align-items-center justify-content-center">
-                                            <FontAwesomeIcon className="icon-circle-user-carousel my-text-grey me-2" icon={solid("circle-user")} />
-                                            <div className="box1-1-detail-name fs-6">User : เกมตัวตึง 888</div>
-                                        </div>
-                                        <div className="menu-name">"กะเพราหมูแต่ใส่ไก่"</div>
-                                    </div>
-                                </div>
-                                <div className="carousel-item active">
-                                    <div
-                                        className="box1-1 d-flex flex-column align-items-center justify-content-center my-bg-minigrey rounded-4">
-                                        <div className="d-flex flex-row align-items-center justify-content-center">
-                                            <FontAwesomeIcon className="icon-circle-user-carousel my-text-grey me-2" icon={solid("circle-user")} />
-                                            <div className="box1-1-detail-name fs-6">User : เกมตัวตึง 888</div>
-                                        </div>
-                                        <div className="menu-name">"กะเพราหมูแต่ใส่ไก่"</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev prev-button" type="button" data-bs-target="#carousel1"
-                                data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carousel1" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    );
+	return (
+		<div className="col-12 col-md-6 col-lg-4">
+			<div className="order-card animate__animated animate__fast animate__fadeIn">
+				<button type="button" className="clickable p-4 w-100 shadow-sm" data-bs-toggle="modal"
+				        data-bs-target={`#${modalId}`}>
+					<ProfileIcon profileURL={props.order.rider.profileImage}/>
+					<div className="fs-5 fw-bold">{props.order.rider.nickname}</div>
+					<div className="fw-light mb-2 my-text-grey text-truncate">"{props.order.rider.aliasname}"</div>
+					<div className="mb-3 text-truncate">{props.order.message}</div>
+					<div className="d-flex justify-content-between">
+						<div className="my-badge my-bg-primary my-text-black">#{props.order.location.name}</div>
+						<div className="d-flex align-items-center">
+							<div className="fw-semibold fs-5">{props.order.currentOrder}/{props.order.maxOrder}</div>
+							<FontAwesomeIcon className="fs-4 ms-3" icon={solid("truck-fast")}/>
+						</div>
+					</div>
+				</button>
+			</div>
+			<div className="modal fade" id={modalId}>
+				<div className="modal-dialog modal-dialog-centered">
+					<div className="modal-order-card modal-content">
+						<div className="modal-body p-0">
+							<div className="d-flex justify-content-end m-3">
+								<button className="my-btn my-btn-primary no-icon d-flex align-items-center justify-content-end"
+								        type="button" data-bs-dismiss="modal">
+									<FontAwesomeIcon className="fs-4 fa-fw" icon={solid("x")}/>
+								</button>
+							</div>
+							<div className="modal-data d-flex flex-column align-items-center px-3 py-3">
+								<ProfileIcon profileURL={props.order.rider.profileImage}/>
+								<div className="w-100 mt-4 mb-3 mt-sm-0 mb-sm-0 d-flex justify-content-between flex-wrap gap-2">
+									<div className="my-badge my-bg-primary my-text-black text-truncate">#{props.order.location.name}</div>
+									<div className="d-flex align-items-center">
+										<div className="fw-semibold fs-5">{props.order.currentOrder}/{props.order.maxOrder}</div>
+										<FontAwesomeIcon className="fs-4 ms-3" icon={solid("truck-fast")}/>
+									</div>
+								</div>
+								<div className="fs-5 fw-bold">{props.order.rider.nickname}</div>
+								<div
+									className="w-100 text-truncate text-center fw-light mb-2 my-text-grey">"{props.order.rider.aliasname}"
+								</div>
+								<div className="w-100 text-truncate text-center">{props.order.message}</div>
+								<OrderCarousel id={`order-carousel-card-${props.order.id}`}/>
+								{user ?
+									<div>
+										<div className="w-100">
+											<button
+												className="fw-semibold text-truncate my-btn my-btn-green btn-block no-icon font-primary fs-5">
+												<FontAwesomeIcon className="me-2" icon={solid("hand-point-up")}/>+1
+												<span className="ms-3">เอาเหมือนกันเลย</span>
+											</button>
+										</div>
+										<hr className="divider"/>
+										<div className="input-container d-flex w-100 gap-2">
+											<input className="input-form w-50" type="text" placeholder="ฝากซื้ออย่างอื่น..."/>
+											<button
+												className="fw-semibold text-truncate flex-fill my-btn my-btn-primary no-icon font-primary fs-5">
+												<FontAwesomeIcon className="me-3" icon={solid("paper-plane")}/>
+												<span>ขอเป็นอันนี้ละกัน</span>
+											</button>
+										</div>
+									</div>
+									:
+									<div className="w-100 fs-5 mb-2 py-3 rounded-3 fw-semibold text-center my-bg-light-grey">
+										<FontAwesomeIcon className="me-3 my-text-grey" icon={solid("info-circle")}/>
+										กรุณาเข้าสู่ระบบก่อนฝากเพื่อนซื้อข้าว!
+									</div>
+								}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 }
+
+ActiveOrderCard.propTypes = {
+	order: OrderModel,
+};
 
 export default ActiveOrderCard;
