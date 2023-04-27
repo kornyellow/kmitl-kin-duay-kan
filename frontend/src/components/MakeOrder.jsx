@@ -17,7 +17,7 @@ const SwalWithStyleButtons = Swal.mixin({
 const MySwal = withReactContent(SwalWithStyleButtons);
 
 const MakeOrder = () => {
-	const [user] = useOutletContext();
+	const [user, , , setCurrent] = useOutletContext();
 	const [topPicks, setTopPicks] = useState([]);
 	const [loading, setLoading] = useState(true);
 
@@ -57,10 +57,6 @@ const MakeOrder = () => {
 		}
 
 		setCreateLoading(true);
-		console.log(JSON.stringify({
-			rider: user, message: messageInput,
-			location: {id: locationInput}, maxOrder: maxOrderInput,
-		}));
 		const createPost = async () => {
 			try {
 				const response = await fetch(BackendServer + "/api/order/create", {
@@ -83,6 +79,7 @@ const MakeOrder = () => {
 					}).then(() => {
 						setSuccess(true);
 						setCreateLoading(false);
+						setCurrent("HOME");
 					});
 				} else {
 					MySwal.fire({
@@ -95,7 +92,7 @@ const MakeOrder = () => {
 			} catch (error) {
 				MySwal.fire({
 					title: "เกิดข้อผิดพลาด!",
-					text: "เกมตัวตึงบุกทำลายเว็บไซต์ของเรา ทำให้เว็บไซต์ไม่สามารถใช้งานได้ชั่วคราว ขออภัยด้วยครับ",
+					text: error,
 					icon: "error",
 					confirmButtonText: "รับทราบ",
 				}).then();

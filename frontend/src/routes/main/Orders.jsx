@@ -4,13 +4,13 @@ import {Outlet, useOutletContext} from "react-router-dom";
 import OrdersNavbar from "../../components/OrdersNavbar";
 
 const Orders = () => {
-	const [user, setUser] = useOutletContext();
+	const [user, setUser, handlePageChange, setCurrent] = useOutletContext();
 
 	return (
 		<div>
 			<Authentication/>
 			<OrdersNavbar/>
-			<Outlet context={[user, setUser]}/>
+			<Outlet context={[user, setUser, handlePageChange, setCurrent]}/>
 		</div>
 	);
 }

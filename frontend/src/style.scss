@@ -551,10 +551,26 @@ body:has(.navbar.authentication) {
         font-size: 0.9em;
       }
 
-      .profile-icon > *,
       .profile-icon {
-        width: 3em;
-        height: 3em;
+        width: 3.2em;
+        height: 3.2em;
+        position: relative;
+        border-radius: 100vw;
+        overflow: hidden;
+
+        & > svg {
+          width: 3.2em;
+          height: 3.2em;
+        }
+
+        img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 3.2em;
+          height: 3.2em;
+          object-fit: cover;
+        }
       }
     }
   }

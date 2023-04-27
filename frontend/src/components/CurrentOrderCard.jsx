@@ -3,9 +3,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {solid} from '@fortawesome/fontawesome-svg-core/import.macro';
 
 const CurrentOrderCard = () => {
-
 	return (
-
 		<div className="parent-container">
 			<div className="container-active-order">
 				<div className="active-item-3">
@@ -15,17 +13,14 @@ const CurrentOrderCard = () => {
 					</div>
 				</div>
 				<div className="active-item-5">
-                    <span className="d-flex flex-column align-items-center order-text">
-                        <p className="fs-3 fw-medium">“กำลังจะไปซื้อข้าวร้าน เทคโนอินเตอร์”</p>
-                        <p className="fs-6 fw-bold">Friday, April 20, 2023 12.33 pm</p>
-                        <p>
-                            <span className="fs-3 fw-medium">5/5 Order</span>
-                            <span>
-                                <button type="button"
-                                        className="btn btn-outline-dark ms-3 confirm-button">CONFIRM</button>
-                            </span>
-                        </p>
-                    </span>
+					<span className="d-flex flex-column align-items-center order-text">
+						<p className="fs-3 fw-medium">“กำลังจะไปซื้อข้าวร้าน เทคโนอินเตอร์”</p>
+						<p className="fs-6 fw-bold">Friday, April 20, 2023 12.33 pm</p>
+						<p>
+							<span className="fs-3 fw-medium">5/5 Order</span>
+							<button type="button" className="btn btn-outline-dark ms-3 confirm-button">CONFIRM</button>
+						</p>
+					</span>
 				</div>
 				<div className="active-item-4">
 					<div className="box-user">
@@ -80,8 +75,7 @@ const CurrentOrderCard = () => {
 				</div>
 
 			</div>
-		</div>
-	);
+		</div>);
 }
 
 export default CurrentOrderCard;

@@ -6,5 +6,4 @@ public class User {
 	public string Aliasname { get; set; } = string.Empty;
 	public string Password { get; set; } = string.Empty;
 	public string ProfileImage { get; set; } = string.Empty;
-	public int Reputation { get; set; } = 0;
 }

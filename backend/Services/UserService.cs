@@ -13,9 +13,16 @@ public class UserService : IUserService {
 	public static User? TryGetUserByUsername(string username) {
 		return Users.FirstOrDefault(u => u.Username == username);
 	}
-
 	public static Token? TryGetToken(string token) {
 		return Tokens.FirstOrDefault(t => t.Id == token);
+	}
+
+	public static void ModifyUser(User user, User newUser) {
+		Users.Remove(user);
+		user.Nickname = newUser.Nickname;
+		user.Aliasname = newUser.Aliasname;
+		user.ProfileImage = newUser.ProfileImage;
+		Users.Add(user);
 	}
 	
 	public ServiceResponse<User> GetUserByToken(Token token) {
@@ -62,14 +69,9 @@ public class UserService : IUserService {
 				Success = false, Message = "ไม่พบ User ดังกล่าว"
 			};
 		}
-		Users.Remove(checkUser);
-
-		checkUser.Nickname = user.Nickname;
-		checkUser.Aliasname = user.Aliasname;
-		checkUser.ProfileImage = user.ProfileImage;
-		checkUser.Reputation = user.Reputation;
-		Users.Add(checkUser);
-
+		
+		ModifyUser(checkUser, user);
+		
 		return new ServiceResponse<User>();
 	}
 
@@ -132,7 +134,6 @@ public class UserService : IUserService {
 			Username = user.Username,
 			Aliasname = user.Aliasname,
 			ProfileImage = user.ProfileImage,
-			Reputation = user.Reputation,
 		};
 	}
 }

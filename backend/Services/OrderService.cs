@@ -6,22 +6,27 @@ public class OrderService : IOrderService {
 	private static readonly List<Order> Orders = new();
 	private static int _orderRegistry = 1;
 
+	public static Order? TryGetOrder(int id) {
+		var order = Orders.FirstOrDefault(o => o.Id == id);
+
+		if (order?.Location == null)
+			return null;
+		if (order.Rider == null)
+			return null;
+
+		return new Order {
+			Id = order.Id, Message = order.Message,
+			MaxOrder = order.MaxOrder, IsComplete = order.IsComplete,
+			Rider = UserService.TryGetUserByUsernameClean(order.Rider.Username),
+			Location = LocationService.TryGetLocation(order.Location.Id),
+		};
+	}
+
 	public ServiceResponse<List<Order>> GetAllActive() {
 		var activeOrders = Orders.Where(o => o.IsComplete == false).ToList();
 
-		List<Order> orders = (from order in activeOrders
-			where order.Location != null
-			where order.Rider?.Username != null
-			select new Order {
-				Id = order.Id,
-				MaxOrder = order.MaxOrder,
-				Rider = UserService.TryGetUserByUsernameClean(order.Rider?.Username),
-				Message = order.Message,
-				Location = LocationService.TryGetLocation(order.Location.Id),
-			}).ToList();
-
 		return new ServiceResponse<List<Order>> {
-			Data = orders,
+			Data = (from order in activeOrders select TryGetOrder(order.Id)).ToList()
 		};
 	}
 
@@ -45,12 +50,11 @@ public class OrderService : IOrderService {
 			};
 		}
 
-		var newOrder = new Order {
+		Orders.Add(new Order {
 			Id = _orderRegistry++, MaxOrder = order.MaxOrder,
 			Rider = UserService.TryGetUserByUsernameClean(checkToken.Owner.Username),
 			Message = order.Message, Location = LocationService.TryGetLocation(order.Location.Id),
-		};
-		Orders.Add(newOrder);
+		});
 
 		return new ServiceResponse<Order>();
 	}

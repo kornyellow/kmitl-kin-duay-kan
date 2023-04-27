@@ -4,6 +4,17 @@ import {solid} from "@fortawesome/fontawesome-svg-core/import.macro";
 import ProfileIcon from "./ProfileIcon";
 import {editUser} from "../routes/authentication/AuthenticationRoot";
 
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const SwalWithStyleButtons = Swal.mixin({
+	customClass: {
+		confirmButton: "my-btn my-btn-primary no-icon fs-5 font-primary fw-semibold",
+	},
+	buttonsStyling: false,
+});
+const MySwal = withReactContent(SwalWithStyleButtons);
+
 const ProfileUploadForm = (props) => {
 	const [user, setUser] = props.onUserChange;
 
@@ -22,7 +33,12 @@ const ProfileUploadForm = (props) => {
 					if (result.success)
 						setUser(newUser);
 				} catch (error) {
-					console.log(error);
+					MySwal.fire({
+						title: "เกิดข้อผิดพลาด!",
+						text: error,
+						icon: "error",
+						confirmButtonText: "รับทราบ",
+					}).then();
 				}
 			}
 			editData().then();

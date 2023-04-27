@@ -41,11 +41,6 @@ const TopPicks = (props) => {
 					))}
 					{!loading && topPicks.length === 0 &&
 						<div className="d-flex">
-							<div
-								className="animate__animated animate__fast animate__bounceIn fs-5 my-text-secondary my-bg-salmon px-3 py-2 fw-semibold text-center">
-								ยังไม่มีร้านเด็ดแสดงผลตอนนี้
-								<FontAwesomeIcon className="ms-3" icon={solid("face-sad-tear")}/>
-							</div>
 						</div>
 					}
 				</div>

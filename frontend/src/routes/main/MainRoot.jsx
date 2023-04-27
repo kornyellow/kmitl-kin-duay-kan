@@ -42,7 +42,7 @@ const MainRoot = () => {
 			<MainNavbar className="flex-shrink-0" onCurrentChange={[current, handleChangePage]} onUserChange={user}
 			            loading={loading}/>
 			<main className="flex-fill">
-				<Outlet context={[user, setUser, handleChangePage]}/>
+				<Outlet context={[user, setUser, handleChangePage, setCurrent]}/>
 			</main>
 			<Footer className="flex-shrink-0"/>
 		</div>

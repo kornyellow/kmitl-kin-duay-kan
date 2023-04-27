@@ -46,9 +46,21 @@ const Profile = () => {
 						icon: "success",
 						confirmButtonText: "รับทราบ",
 					}).then();
+				} else {
+					MySwal.fire({
+						title: "เกิดข้อผิดพลาด!",
+						text: data.message,
+						icon: "error",
+						confirmButtonText: "รับทราบ",
+					}).then();
 				}
 			} catch (error) {
-				console.log(error);
+				MySwal.fire({
+					title: "เกิดข้อผิดพลาด!",
+					text: error,
+					icon: "error",
+					confirmButtonText: "รับทราบ",
+				}).then();
 			} finally {
 				setLoading(false);
 			}
@@ -79,7 +91,12 @@ const Profile = () => {
 					}).then();
 				}
 			} catch (error) {
-				console.log(error);
+				MySwal.fire({
+					title: "เกิดข้อผิดพลาด!",
+					text: error,
+					icon: "error",
+					confirmButtonText: "รับทราบ",
+				}).then();
 			} finally {
 				setLoading(false);
 			}
