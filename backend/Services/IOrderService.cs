@@ -6,7 +6,6 @@ public interface IOrderService {
 	public ServiceResponse<List<Order>> GetAll();
 	public ServiceResponse<List<Order>> GetAllActive();
 	public ServiceResponse<List<Order>> GetAllCompleteByUser(string username);
-	public ServiceResponse<List<Order>> GetAllCompleteSortByPoint();
 
 	public ServiceResponse<Order> Create(Order order);
 	public ServiceResponse<Order> Complete(Order order);

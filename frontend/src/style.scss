@@ -583,105 +583,35 @@ body:has(.navbar.authentication) {
   }
 }
 
-/* TOP SCORE */
-.top-score .top-score-head {
-  font-size: 3em;
-}
+/* SCOREBOARD */
+.scoreboard {
+  .scoreboard-progress-bar {
+    .profile-icon {
+      width: 10em;
+      height: 10em;
+      position: relative;
+      border-radius: 100vw;
+      overflow: hidden;
 
-.top-score .icon-circle-user {
-  font-size: 4.5em;
-}
+      & > svg {
+        width: 10em;
+        height: 10em;
+      }
 
-.top-score .progresss {
-  margin-top: -1.9em;
-}
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 10em;
+        height: 10em;
+        object-fit: cover;
+      }
+    }
 
-.top-score .progress {
-  height: 4em;
-}
-
-.top-score .progress-bar-1 {
-  width: 65em;
-}
-
-.top-score .bar-point {
-  margin-top: -1em;
-}
-
-/* MAKE ORDER */
-.make-order {
-}
-
-.container-active-order {
-  display: flex;
-  justify-content: space-around;
-  width: 90.0625em;
-  height: 14.75em;
-  background: #F1F0EC;
-  border-radius: 20px;
-}
-
-.order-profile {
-  display: flex;
-  align-items: center;
-  width: 10.9375em;
-  height: 8.8125em;
-
-}
-
-.parent-container {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-.mini-profile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 4.9375em;
-  height: 4.8125em;
-}
-
-.box-user {
-  display: grid;
-  columns: 3;
-  width: 24em;
-  height: 9.8125em;
-  background: #F8F8F8;
-  border-radius: 40px;
-  
-  
-  border: 2px solid #000;
-}
-
-
-//order-profile
-.active-item-3 {
-  width: 25%;
-  display: flex;
-  justify-content: right;
-  align-items: center;
-  // border: 2px solid #000;
-}
-
-//letter
-.active-item-4 {
-  width: 33.33%;
-  display: flex;
-  align-items: center;
-}
-
-//box-user
-.active-item-5 {
-  width: 50.67%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.btn-success {
-  background-color: #A3EBB1;
-  border-color: #A3EBB1;
-  color: #209416;
+    .bar {
+      width: 100%;
+      background: $my-primary-color;
+      color: darken($my-primary-color, 30%);
+    }
+  }
 }

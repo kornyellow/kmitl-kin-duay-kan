@@ -4,6 +4,7 @@ namespace kmitl_web_app_project_backend.Services;
 
 public interface IUserService {
 	public ServiceResponse<User> GetUserByToken(Token token);
+	public ServiceResponse<List<User>> GetUsersSortByPoint();
 
 	public ServiceResponse<User> Edit(User user);
 

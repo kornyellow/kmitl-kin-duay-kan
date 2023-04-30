@@ -24,10 +24,6 @@ public class OrderController : ControllerBase {
 	public ActionResult<List<Order>> GetAllCompleteByUser(string username) {
 		return Ok(_orderService.GetAllCompleteByUser(username));
 	}
-	[HttpPost("sort")]
-	public ActionResult<List<Order>> Sort() {
-		return Ok(_orderService.GetAllCompleteSortByPoint());
-	}
 
 	[HttpPost("create")]
 	public ActionResult<Order> Create(Order order) {

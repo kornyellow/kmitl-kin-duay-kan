@@ -13,6 +13,11 @@ public class UserController : ControllerBase {
 		_userService = userService;
 	}
 
+	[HttpGet("sort")]
+	public ActionResult<List<User>> GetUsersSortByPoint() {
+		return Ok(_userService.GetUsersSortByPoint());
+	}
+
 	[HttpPost("token")]
 	public ActionResult<User> GetUserByToken(Token token) {
 		return Ok(_userService.GetUserByToken(token));

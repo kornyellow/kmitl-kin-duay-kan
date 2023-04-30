@@ -49,6 +49,17 @@ public class UserService : IUserService {
 		return new ServiceResponse<User> { Data = checkUser };
 	}
 
+	public ServiceResponse<List<User>> GetUsersSortByPoint() {
+		var usersClean = (from user in Users select TryGetUserByUsernameClean(user.Username)).ToList();
+		foreach (var user in usersClean) {
+			var sumPoints = OrderService.TryGetOrdersWithCountByUser(user.Username).Sum(order => order.OrderCount);
+			user.Point = sumPoints;
+		}
+		var users = usersClean.OrderByDescending(u => u.Point).ToList();
+
+		return new ServiceResponse<List<User>> { Data = users };
+	}
+
 	public ServiceResponse<User> Edit(User user) {
 		var checkToken = TryGetToken(user.Password);
 		if (checkToken == null) {

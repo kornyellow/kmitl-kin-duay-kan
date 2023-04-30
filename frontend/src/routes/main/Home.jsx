@@ -13,7 +13,7 @@ const Home = () => {
 			<Banner/>
 			<TopPicks user={user} onPageChange={handleChangePage}/>
 			<ActiveOrders user={user}/>
-			<ScoreBoard/>
+			<ScoreBoard user={user}/>
 		</div>
 	);
 }

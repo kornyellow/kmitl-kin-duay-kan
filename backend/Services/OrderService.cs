@@ -24,6 +24,16 @@ public class OrderService : IOrderService {
 		};
 	}
 
+	public static List<Order> TryGetOrdersWithCountByUser(string username) {
+		var orders = Orders.Where(o => o.Rider?.Username == username && o.IsComplete).ToList();
+		foreach (var order in orders) {
+			var orderRecipients = OrderRecipientService.GetOrderRecipients(order.Id);
+			order.OrderCount = orderRecipients.Count;
+		}
+
+		return orders;
+	}
+
 	public static Order? TryGetOrder(int? id) {
 		var order = Orders.FirstOrDefault(o => o.Id == id);
 
@@ -60,16 +70,6 @@ public class OrderService : IOrderService {
 
 		return new ServiceResponse<List<Order>> {
 			Data = (from order in completeOrders select TryGetOrderWithCount(order.Id)).ToList()
-		};
-	}
-
-	public ServiceResponse<List<Order>> GetAllCompleteSortByPoint() {
-		var completeOrders = Orders.Where(o => o.IsComplete).ToList();
-		completeOrders = (from order in completeOrders select TryGetOrderWithCount(order.Id)).ToList();
-		var orders = completeOrders.OrderBy(o => o.OrderCount).ToList();
-
-		return new ServiceResponse<List<Order>> {
-			Data = orders
 		};
 	}
 
