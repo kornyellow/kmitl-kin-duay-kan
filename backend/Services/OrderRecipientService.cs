@@ -20,6 +20,11 @@ public class OrderRecipientService : IOrderRecipientService {
 			Recipient = UserService.TryGetUserByUsernameClean(orderRecipient.Recipient.Username),
 		};
 	}
+	
+	public static List<OrderRecipient> GetOrderRecipients(int id) {
+		var orderRecipients = OrderRecipients.Where(or => or.Order?.Id == id);
+		return (from orderRecipient in orderRecipients select TryGetOrderRecipient(orderRecipient.Id)).ToList();
+	}
 
 	public ServiceResponse<List<OrderRecipient>> GetOrderRecipientsByOrder(int id) {
 		var order = OrderService.TryGetOrder(id);
@@ -31,6 +36,15 @@ public class OrderRecipientService : IOrderRecipientService {
 		}
 
 		var orderRecipients = OrderRecipients.Where(or => or.Order != null && or.Order.Id == id);
+
+		return new ServiceResponse<List<OrderRecipient>> {
+			Data = (from orderReci in orderRecipients select TryGetOrderRecipient(orderReci.Id)).ToList()
+		};
+	}
+
+	public ServiceResponse<List<OrderRecipient>> GetOrderRecipientsCompleteByUser(string username) {
+		var orderRecipients = OrderRecipients.Where(or => OrderService.TryGetOrder(or.Order?.Id)?.IsComplete == true && or.Recipient?.Username == username).ToList();
+		orderRecipients.Sort((x, y) => y.Order == null || x.Order == null ? 0 : y.Order.DateTime.CompareTo(x.Order.DateTime));
 
 		return new ServiceResponse<List<OrderRecipient>> {
 			Data = (from orderReci in orderRecipients select TryGetOrderRecipient(orderReci.Id)).ToList()

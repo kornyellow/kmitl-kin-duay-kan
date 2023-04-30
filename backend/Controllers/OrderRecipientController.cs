@@ -16,6 +16,10 @@ public class OrderRecipientController : ControllerBase {
 	public ActionResult<List<OrderRecipient>> GetOrderRecipientsByOrder(int id) {
 		return Ok(_orderRecipientService.GetOrderRecipientsByOrder(id));
 	}
+	[HttpGet("complete/{username}")]
+	public ActionResult<List<OrderRecipient>> GetOrderRecipientsCompleteByUser(string username) {
+		return Ok(_orderRecipientService.GetOrderRecipientsCompleteByUser(username));
+	}
 
 	[HttpPost("create")]
 	public ActionResult<OrderRecipient> Create(OrderRecipient orderRecipient) {

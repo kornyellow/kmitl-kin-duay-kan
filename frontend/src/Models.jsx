@@ -5,7 +5,6 @@ export const UserModel = PropTypes.shape({
 	nickname: PropTypes.string.isRequired,
 	aliasname: PropTypes.string.isRequired,
 	profileImage: PropTypes.string.isRequired,
-	reputation: PropTypes.number.isRequired,
 });
 
 export const TokenModel = PropTypes.shape({
@@ -16,7 +15,6 @@ export const TokenModel = PropTypes.shape({
 export const LocationModel = PropTypes.shape({
 	id: PropTypes.number.isRequired,
 	name: PropTypes.string.isRequired,
-	rating: PropTypes.number.isRequired,
 });
 
 export const OrderModel = PropTypes.shape({
@@ -24,10 +22,7 @@ export const OrderModel = PropTypes.shape({
 	rider: UserModel,
 	message: PropTypes.string.isRequired,
 	location: LocationModel,
-	currentOrder: PropTypes.number.isRequired,
 	maxOrder: PropTypes.number.isRequired,
-	dateTimeCreated: PropTypes.string.isRequired,
-	score: PropTypes.number.isRequired,
 	isComplete: PropTypes.bool.isRequired,
 });
 
@@ -36,5 +31,4 @@ export const OrderRecipientModel = PropTypes.shape({
 	recipient: UserModel,
 	order: OrderModel,
 	message: PropTypes.string.isRequired,
-	dateTimeCreated: PropTypes.string.isRequired,
 });

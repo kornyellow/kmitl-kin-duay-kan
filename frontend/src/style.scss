@@ -535,9 +535,16 @@ body:has(.navbar.authentication) {
     width: 100%;
     margin: 1em;
   }
+}
+
+/* Order Carousel */
+.order-carousel {
+  background-color: $my-white-color;
+  border-radius: $default-border-radius;
+  border: 2px solid darken($my-secondary-color, 15%);
 
   .carousel-control-prev, .carousel-control-next {
-    top: 35%;
+    top: 31%;
     width: 2.5em !important;
     height: 2.5em !important;
     color: $my-black-color;
@@ -574,13 +581,6 @@ body:has(.navbar.authentication) {
       }
     }
   }
-}
-
-/* Order Carousel */
-.order-carousel {
-  background-color: $my-white-color;
-  border-radius: $default-border-radius;
-  border: 2px solid darken($my-secondary-color, 15%);
 }
 
 /* TOP SCORE */

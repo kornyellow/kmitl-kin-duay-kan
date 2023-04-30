@@ -1,87 +1,151 @@
-import React from "react";
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {solid} from '@fortawesome/fontawesome-svg-core/import.macro';
+import React, {useEffect, useState} from "react";
+import {useOutletContext} from "react-router-dom";
+import BackendServer from "../index";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {solid} from "@fortawesome/fontawesome-svg-core/import.macro";
+import LoadingPlaceHolder from "./LoadingPlaceHolder";
 
 const History = () => {
+	const [user] = useOutletContext();
 
-    return (
+	const [orders, setOrders] = useState([]);
+	const [loadingOrder, setLoadingOrder] = useState(false);
 
-      <div className="parent-container">
-          <div className="container-active-order">
-              <div className="active-item-3">
-                  <div className="order-profile">
-                      <img src="https://i.pinimg.com/564x/62/8c/a3/628ca307f8b7281bf055ff5894cc78d5.jpg"
-                           alt="..." className="img-fluid rounded-circle"></img>
-                  </div>
-              </div>
-              <div className="active-item-5">
-                    <span className="d-flex flex-column align-items-center order-text">
-                        <p className="fs-3 fw-medium">“กำลังจะไปซื้อข้าวร้าน เทคโนอินเตอร์”</p>
-                        <p className="fs-6 fw-bold">Friday, April 20, 2023 12.33 pm</p>
-                        <p>
-                            <span className="fs-3 fw-medium">5/5 Order</span> 
-                            <span>
-                            <button type="button" className="btn btn-success ms-3">SUCCESS</button>
-                            </span>
-                        </p>
-                    </span>
-              </div>
-              <div className="active-item-4">
-                  <div className="box-user">
-                      <div id="carousel1" className="carousel carousel-dark slide">
-                          <div className="inner-carousel">
-                              <div className="carousel-item active">
-                                  <div
-                                    className="box1-1 d-flex flex-column align-items-center justify-content-center my-bg-minigrey rounded-4">
-                                      <div className="d-flex flex-row align-items-center justify-content-center">
-                                          <FontAwesomeIcon className="icon-circle-user-carousel my-text-grey me-2"
-                                                           icon={solid("circle-user")}/>
-                                          <div className="box1-1-detail-name fs-6">User : เกมตัวตึง 888</div>
-                                      </div>
-                                      <div className="menu-name">"กะเพราหมูแต่ใส่ไก่"</div>
-                                  </div>
-                              </div>
-                              <div className="carousel-item active">
-                                  <div
-                                    className="box1-1 d-flex flex-column align-items-center justify-content-center my-bg-minigrey rounded-4">
-                                      <div className="d-flex flex-row align-items-center justify-content-center">
-                                          <FontAwesomeIcon className="icon-circle-user-carousel my-text-grey me-2"
-                                                           icon={solid("circle-user")}/>
-                                          <div className="box1-1-detail-name fs-6">User : เกมตัวตึง 888</div>
-                                      </div>
-                                      <div className="menu-name">"กะเพราหมูแต่ใส่ไก่"</div>
-                                  </div>
-                              </div>
-                              <div className="carousel-item active">
-                                  <div
-                                    className="box1-1 d-flex flex-column align-items-center justify-content-center my-bg-minigrey rounded-4">
-                                      <div className="d-flex flex-row align-items-center justify-content-center">
-                                          <FontAwesomeIcon className="icon-circle-user-carousel my-text-grey me-2"
-                                                           icon={solid("circle-user")}/>
-                                          <div className="box1-1-detail-name fs-6">User : เกมตัวตึง 888</div>
-                                      </div>
-                                      <div className="menu-name">"กะเพราหมูแต่ใส่ไก่"</div>
-                                  </div>
-                              </div>
-                          </div>
-                          <button className="carousel-control-prev prev-button" type="button"
-                                  data-bs-target="#carousel1"
-                                  data-bs-slide="prev">
-                              <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                              <span className="visually-hidden">Previous</span>
-                          </button>
-                          <button className="carousel-control-next" type="button" data-bs-target="#carousel1"
-                                  data-bs-slide="next">
-                              <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                              <span className="visually-hidden">Next</span>
-                          </button>
-                      </div>
-                  </div>
-              </div>
+	const [orderRecipients, setOrderRecipients] = useState([]);
+	const [loadingOrderRecipient, setLoadingOrderRecipient] = useState(false);
 
-          </div>
-      </div>
-    );
+	useEffect(() => {
+		const fetchOrders = async () => {
+			try {
+				const response = await fetch(BackendServer + "/api/order/complete/" + user.username);
+				const data = await response.json();
+
+				setOrders(data.data);
+				console.log(data.data);
+			} catch (error) {
+				console.log(error);
+			} finally {
+				setLoadingOrder(false);
+			}
+		};
+		const fetchOrderRecipients = async () => {
+			try {
+				const response = await fetch(BackendServer + "/api/orderrecipient/complete/" + user.username);
+				const data = await response.json();
+
+				setOrderRecipients(data.data);
+				console.log(data.data);
+			} catch (error) {
+				console.log(error);
+			} finally {
+				setLoadingOrderRecipient(false);
+			}
+		}
+		if (user) {
+			fetchOrders().then();
+			fetchOrderRecipients().then();
+		}
+	}, [user])
+
+	const dateOptions = {
+		year: "numeric",
+		month: "long",
+		day: "numeric",
+		hour: "numeric",
+		minute: "numeric",
+		hour12: false,
+		timeZone: "Asia/Bangkok"
+	};
+
+	return (
+		<div className="animate__animated animate__fadeIn animate__fast mt-2">
+			<div className="container">
+				<div className="my-bg-white p-4 rounded-3 shadow-sm shadow">
+					<div className="row">
+						<div className="col-12 col-lg-6">
+							<div className="fs-3 fw-bold mb-1">
+								<FontAwesomeIcon className="fs-4 me-3" icon={solid("motorcycle")}/>
+								ออเดอร์ที่คุณไปซื้อให้เพื่อน
+							</div>
+							<div>
+								{loadingOrder ?
+									<LoadingPlaceHolder/>
+									:
+									orders.length === 0 ?
+										<div className="d-flex mt-2">
+											<div
+												className="animate__animated animate__fast animate__bounceIn fs-5 my-text-secondary my-bg-salmon px-3 py-2 fw-semibold text-center">
+												คุณยังไม่ได้ทำรายการตอนนี้
+												<FontAwesomeIcon className="ms-3" icon={solid("face-sad-tear")}/>
+											</div>
+										</div>
+										:
+										orders.map((order) => (
+											<div className="border-bottom py-3" key={`order-history-${order.id}`}>
+												<div className="fs-6 my-text-grey">
+													คุณได้ไปซื้อของให้เพื่อนทั้งหมด {order.orderCount} คน
+												</div>
+												<div className="d-flex align-items-center gap-2">
+													<div className="fs-5 fw-semibold">{order.message} @</div>
+													<div
+														className="my-badge my-bg-primary my-text-black text-truncate">#{order.location.name}</div>
+												</div>
+												<div className="mt-1">
+													<small className="my-text-grey">
+														{new Date(order.dateTime).toLocaleDateString("th-TH", dateOptions)}
+													</small>
+												</div>
+											</div>
+										))
+								}
+							</div>
+						</div>
+						<div className="col-12 col-lg-6">
+							<div className="fs-3 fw-bold mb-1">
+								<FontAwesomeIcon className="fs-4 me-3" icon={solid("boxes-stacked")}/>
+								ออเดอร์ที่คุณฝากเพื่อนซื้อ
+							</div>
+							<div>
+								{loadingOrderRecipient ?
+									<LoadingPlaceHolder/>
+									:
+									orderRecipients.length === 0 ?
+										<div className="d-flex mt-2">
+											<div
+												className="animate__animated animate__fast animate__bounceIn fs-5 my-text-secondary my-bg-salmon px-3 py-2 fw-semibold text-center">
+												คุณยังไม่ได้ทำรายการตอนนี้
+												<FontAwesomeIcon className="ms-3" icon={solid("face-sad-tear")}/>
+											</div>
+										</div>
+										:
+										orderRecipients.map((orderRecipient) => (
+											<div className="border-bottom py-3" key={`order-recipient-history-${orderRecipient.id}`}>
+												<div className="fs-6 my-text-grey">
+													คุณได้ฝาก <span
+													className="fw-semibold">{orderRecipient.order.rider.nickname} "{orderRecipient.order.message}"</span> ซื้อ
+												</div>
+												<div className="d-flex align-items-center gap-2">
+													<div
+														className="fs-5 fw-semibold">{orderRecipient.message === "" ? "เหมือนกับคนฝาก!" : orderRecipient.message} @
+													</div>
+													<div
+														className="my-badge my-bg-primary my-text-black text-truncate">#{orderRecipient.order.location.name}</div>
+												</div>
+												<div className="mt-1">
+													<small className="my-text-grey">
+														{new Date(orderRecipient.order.dateTime).toLocaleDateString("th-TH", dateOptions)}
+													</small>
+												</div>
+											</div>
+										))
+								}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 }
 
 export default History;

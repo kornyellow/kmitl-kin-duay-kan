@@ -27,7 +27,7 @@ const OrdersNavbar = () => {
 					<Link className={`font-primary my-btn no-icon nav-link ${current === "ACTIVE" && "current"}`}
 					      to={`/orders/active`} replace="true" onClick={event => handleChangePage(event, "ACTIVE")}>
 						<FontAwesomeIcon className="me-3" icon={solid("rectangle-list")}/>
-						ออเดอร์ที่กำลังไปซื้อ
+						ออเดอร์ที่คุณกำลังไปซื้อ
 					</Link>
 					<Link className={`font-primary my-btn no-icon nav-link ${current === "HISTORY" && "current"}`}
 					      to={`/orders/history`} replace="true" onClick={event => handleChangePage(event, "HISTORY")}>

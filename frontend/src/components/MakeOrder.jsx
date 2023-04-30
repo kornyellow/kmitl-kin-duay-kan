@@ -7,6 +7,7 @@ import BackendServer from "../index";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import {Navigate, useOutletContext} from "react-router-dom";
+import LoadingPlaceHolder from "./LoadingPlaceHolder";
 
 const SwalWithStyleButtons = Swal.mixin({
 	customClass: {
@@ -28,7 +29,23 @@ const MakeOrder = () => {
 	const [locationInput, setLocationInput] = useState("");
 	const [maxOrderInput, setMaxOrderInput] = useState(3);
 
+	const [orders, setOrders] = useState([]);
+	const [orderLoading, setOrderLoading] = useState(true);
+
 	useEffect(() => {
+		const fetchOrderRecipients = async () => {
+			try {
+				const response = await fetch(BackendServer + "/api/order");
+				const data = await response.json();
+
+				setOrders(data.data);
+			} catch (error) {
+				console.log(error);
+			} finally {
+				setOrderLoading(false);
+			}
+		};
+		fetchOrderRecipients().then();
 		const fetchData = async () => {
 			try {
 				const response = await fetch(BackendServer + "/api/location");
@@ -105,58 +122,70 @@ const MakeOrder = () => {
 
 	return (
 		<div className="animate__animated animate__fadeIn animate__fast mt-2">
-			<div className="container make-order">
-				<form className="input-container px-0 px-lg-5" onSubmit={handleSubmit}>
-					{success && <Navigate to={`/`} replace={true}/>}
-					<div className="row px-0 px-lg-5 gy-4">
-						<div className="col-12">
-							<div className="fs-5 mb-2 fw-semibold">ไปซื้ออะไร</div>
-							<input type="text" placeholder="เช่น จะไปซื้อข้าวหมูทอด ใครอยากกินอะไรมั้ย"
-							       onChange={(event) => setMessageInput(event.target.value)}/>
-						</div>
-						<div className="col-12">
-							<div className="fs-5 mb-2 fw-semibold">ไปซื้อที่ไหน</div>
-							<select defaultValue={locationInput} onChange={(event) => setLocationInput(event.target.value)}>
-								{loading ?
-									<option value="" disabled hidden>กำลังโหลด...</option>
-									:
-									<option value="" disabled hidden>กดเพื่อเลือกที่ที่จะไปซื้อ</option>
-								}
-								{topPicks.map((topPick) => (
-									<option key={`top-pick-option-${topPick.id}`} value={topPick.id}>{topPick.name}</option>
-								))}
-							</select>
-						</div>
-						<div className="col-12">
-							<div className="fs-5 mb-2 fw-semibold">จำนวนที่รับฝากซื้อมากที่สุด</div>
-							<div className="d-flex gap-2">
-								<button className="my-btn my-btn-salmon no-icon" type="button"
-								        onClick={() => setMaxOrderInput(Math.max(1, maxOrderInput - 1))}>
-									<FontAwesomeIcon icon={solid("minus")}/>
-								</button>
-								<input readOnly={true} value={maxOrderInput} type="number"/>
-								<button className="my-btn my-btn-green no-icon d-flex align-items-center" type="button"
-								        onClick={() => setMaxOrderInput(Math.min(5, maxOrderInput + 1))}>
-									<FontAwesomeIcon icon={solid("plus")}/>
-								</button>
-							</div>
-						</div>
-						<div className="col-12">
-							{!createLoading ?
-								<button type="submit" className="fs-5 my-btn my-btn-primary btn-block fw-semibold font-primary">
-									<FontAwesomeIcon className="me-3" icon={solid("paper-plane")}/>
-									สร้างโพสต์เลย!
-								</button>
-								:
-								<button type="button" className="fs-5 my-btn my-btn-primary disabled btn-block">
-									<FontAwesomeIcon className="me-3" icon={solid("spinner")} spinPulse/>
-									Loading
-								</button>
-							}
+			{success && <Navigate to={`/`} replace={true}/>}
+			{orderLoading ?
+				<div className="container d-flex justify-content-center"><LoadingPlaceHolder/></div>
+				:
+				orders.some(order => order.rider.username === user.username) ?
+					<div className="container d-flex justify-content-center">
+						<div
+							className="animate__animated animate__fast animate__bounceIn fs-5 my-text-secondary my-bg-salmon px-3 py-2 fw-semibold text-center">
+							คุณกำลังไปซื้อของให้เพื่อนอยู่<FontAwesomeIcon className="ms-3" icon={solid("motorcycle")}/>
 						</div>
 					</div>
-				</form>
-			</div>
+					:
+					<div className="container make-order">
+						<form className="input-container px-0 px-lg-5" onSubmit={handleSubmit}>
+							<div className="row px-0 px-lg-5 gy-4">
+								<div className="col-12">
+									<div className="fs-5 mb-2 fw-semibold">ไปซื้ออะไร</div>
+									<input type="text" placeholder="เช่น จะไปซื้อข้าวหมูทอด ใครอยากกินอะไรมั้ย"
+									       onChange={(event) => setMessageInput(event.target.value)}/>
+								</div>
+								<div className="col-12">
+									<div className="fs-5 mb-2 fw-semibold">ไปซื้อที่ไหน</div>
+									<select defaultValue={locationInput} onChange={(event) => setLocationInput(event.target.value)}>
+										{loading ?
+											<option value="" disabled hidden>กำลังโหลด...</option>
+											:
+											<option value="" disabled hidden>กดเพื่อเลือกที่ที่จะไปซื้อ</option>
+										}
+										{topPicks.map((topPick) => (
+											<option key={`top-pick-option-${topPick.id}`} value={topPick.id}>{topPick.name}</option>
+										))}
+									</select>
+								</div>
+								<div className="col-12">
+									<div className="fs-5 mb-2 fw-semibold">จำนวนที่รับฝากซื้อมากที่สุด</div>
+									<div className="d-flex gap-2">
+										<button className="my-btn my-btn-salmon no-icon" type="button"
+										        onClick={() => setMaxOrderInput(Math.max(1, maxOrderInput - 1))}>
+											<FontAwesomeIcon icon={solid("minus")}/>
+										</button>
+										<input readOnly={true} value={maxOrderInput} type="number"/>
+										<button className="my-btn my-btn-green no-icon d-flex align-items-center" type="button"
+										        onClick={() => setMaxOrderInput(Math.min(5, maxOrderInput + 1))}>
+											<FontAwesomeIcon icon={solid("plus")}/>
+										</button>
+									</div>
+								</div>
+								<div className="col-12">
+									{!createLoading ?
+										<button type="submit" className="fs-5 my-btn my-btn-primary btn-block fw-semibold font-primary">
+											<FontAwesomeIcon className="me-3" icon={solid("paper-plane")}/>
+											สร้างโพสต์เลย!
+										</button>
+										:
+										<button type="button" className="fs-5 my-btn my-btn-primary disabled btn-block">
+											<FontAwesomeIcon className="me-3" icon={solid("spinner")} spinPulse/>
+											Loading
+										</button>
+									}
+								</div>
+							</div>
+						</form>
+					</div>
+			}
 		</div>
 	);
 };
