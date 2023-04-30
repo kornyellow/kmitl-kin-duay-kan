@@ -110,8 +110,8 @@ const CurrentOrderCard = (props) => {
 				</div>
 				:
 				<div className="animate__animated animate__fast animate__fadeIn my-bg-white p-4 rounded-3 shadow-sm shadow">
-					<div className="d-flex flex-wrap gap-lg-5 gap-2 justify-content-between">
-						<div className="flex-grow-1">
+					<div className="d-flex flex-wrap gap-2 justify-content-between">
+						<div className="w-100">
 							<div className="fs-3 fw-bold mb-3">
 								<FontAwesomeIcon className="fs-4 me-3" icon={solid("list")}/>
 								ออเดอร์ที่คุณกำลังไปซื้อให้เพื่อน!
@@ -133,7 +133,7 @@ const CurrentOrderCard = (props) => {
 								}
 							</div>
 						</div>
-						<div>
+						<div className="w-100">
 							<OrderCarousel loading={loading} orderRecipients={orderRecipients}
 							               id={`order-carousel-card-${props.order.id}`}/>
 						</div>
